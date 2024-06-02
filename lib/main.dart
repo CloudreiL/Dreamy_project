@@ -1,9 +1,7 @@
-import 'package:dreamy_project/classes/curvednavbar.dart';
+import 'package:dreamy_project/pages/registration_login/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-
-import 'package:dreamy_project/pages/home_page.dart';
 
 
 void main() {
@@ -26,7 +24,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           useMaterial3: true,
         ),
-        home: const BottomNavBar()
+        home: const LoginPage()
     );
   }
 }

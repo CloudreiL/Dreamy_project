@@ -35,6 +35,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  simple_gradient_text: ^1.3.0
 
 dev_dependencies:
   flutter_test:
@@ -95,6 +96,11 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+  assets:
+    - "assets/icons/app_icon/android/res/mipmap-xxxhdpi/Dreamy_monochrome.png"
+
+
 
   fonts:
     - family: FiraSans_Regular

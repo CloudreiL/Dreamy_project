@@ -4,4 +4,4 @@ The project is an application for writing dreams and tracking the user emotional
 
 ## Presentation
 
-!["First pages"](video_2024-06-02_01-03-29.gif)
+!["First page"](video_2024-06-02_22-39-44.gif)
