@@ -99,6 +99,7 @@ flutter:
 
   assets:
     - "assets/icons/app_icon/android/res/mipmap-xxxhdpi/Dreamy_monochrome.png"
+    - "assets/images/google-symbol.png"
 
 
 

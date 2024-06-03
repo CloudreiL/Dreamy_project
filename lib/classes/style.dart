@@ -35,7 +35,6 @@ class TextFields{
       filled: true,
       fillColor: Color.fromRGBO(255, 255, 255, 200),
 
-
   );
 
   static InputDecoration FieldDec_2 = InputDecoration(
@@ -51,5 +50,20 @@ class TextFields{
       labelStyle: TextStyles.StyleText_normal,
       filled: true,
       fillColor: Color.fromRGBO(255, 255, 255, 200),
+  );
+
+  static InputDecoration FieldDec_3 = InputDecoration(
+    enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.white),
+        borderRadius: BorderRadius.circular(20)
+    ),
+    focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.white),
+        borderRadius: BorderRadius.circular(20)
+    ),
+    labelText: 'Confirm Password',
+    labelStyle: TextStyles.StyleText_normal,
+    filled: true,
+    fillColor: Color.fromRGBO(255, 255, 255, 200),
   );
 }

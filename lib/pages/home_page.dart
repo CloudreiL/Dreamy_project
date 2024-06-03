@@ -14,25 +14,21 @@ class _HomePageState extends State<HomePage>{
 
   @override
   Widget build(BuildContext context){
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Home', style: TextStyles.StyleText_title),
-        backgroundColor: Colors.black,
+    return Container(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Colors.black, Color.fromRGBO(57, 34, 99, 1)],
+          )
       ),
-      body: Stack(
-        children: [
-          Positioned.fill(
-              child: Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [Colors.black, Color.fromRGBO(57, 34, 99, 1)],
-                  )
-                ),
-              )
-          ),
-        ],
+
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          title: Text('Home', style: TextStyles.StyleText_title),
+          backgroundColor: Colors.transparent
+        ),
       ),
     );
   }
