@@ -28,12 +28,14 @@ class LoginPage extends StatelessWidget {
                   Padding(padding: EdgeInsets.only(top:130),
                       child: Text(
                         'Welcome to Dreamy',
-                        style: TextStyles.StyleText_title,
+                        style: TextStyles.StyleText.copyWith(
+                          fontSize: 30
+                        ),
                       )
                   ),
                   Text(
                       "Let's see what your dreams are!",
-                      style: TextStyles.StyleText_normal,
+                      style: TextStyles.StyleText,
                     ),
 
 
@@ -76,9 +78,11 @@ class LoginPage extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(20)
                                 ),
                                 child: TextField(
-                                  decoration: TextFields.FieldDec_1,
+                                  decoration: TextFields.FieldDec.copyWith(
+                                    labelText: 'Email Address'
+                                  ),
                                   cursorColor: Colors.white,
-                                  style: TextStyles.StyleText_normal,
+                                  style: TextStyles.StyleText,
                                 ),
                               ),
                             ), //Поле почты
@@ -99,9 +103,11 @@ class LoginPage extends StatelessWidget {
                                 ),
                                 child: TextField(
                                   obscureText: true,
-                                  decoration: TextFields.FieldDec_2,
+                                  decoration: TextFields.FieldDec.copyWith(
+                                    labelText: 'Password'
+                                  ),
                                   cursorColor: Colors.white,
-                                  style: TextStyles.StyleText_normal,
+                                  style: TextStyles.StyleText,
                                 ),
                               ),
                             ),
@@ -136,7 +142,7 @@ class LoginPage extends StatelessWidget {
                                     },
                                     child: GradientText(
                                       'Login',
-                                      style: TextStyles.StyleText_normal,
+                                      style: TextStyles.StyleText,
                                       colors: [
                                         Color.fromRGBO(195, 66, 218, 1),
                                         Color.fromRGBO(103, 58, 183, 1)
@@ -168,7 +174,9 @@ class LoginPage extends StatelessWidget {
                                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                                   child: Text(
                                       "Or login with",
-                                      style: TextStyles.StyleText_smaller
+                                      style: TextStyles.StyleText.copyWith(
+                                        fontSize: 15
+                                      )
                                   ),
                                 ),
                                 Expanded(child: Divider(
@@ -188,7 +196,9 @@ class LoginPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text("Don't have an account?",
-                                  style: TextStyles.StyleText_smaller,
+                                  style: TextStyles.StyleText.copyWith(
+                                    fontSize: 15
+                                  )
                               ),
                               TextButton(onPressed: (){
                                 Navigator.pushReplacement(

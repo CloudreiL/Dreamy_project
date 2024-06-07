@@ -29,12 +29,14 @@ class RegPage extends StatelessWidget {
                   Padding(padding: EdgeInsets.only(top:130),
                       child: Text(
                         'Create an account',
-                        style: TextStyles.StyleText_title,
+                        style: TextStyles.StyleText.copyWith(
+                          fontSize: 30
+                        ),
                       )
                   ),
                     Text(
                       "to get started now!",
-                      style: TextStyles.StyleText_normal,
+                      style: TextStyles.StyleText,
                     ),
 
                   SizedBox(height: 50),
@@ -76,9 +78,11 @@ class RegPage extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(20)
                             ),
                             child: TextField(
-                              decoration: TextFields.FieldDec_1,
+                              decoration: TextFields.FieldDec.copyWith(
+                                labelText: 'Email Address'
+                              ),
                               cursorColor: Colors.white,
-                              style: TextStyles.StyleText_normal,
+                              style: TextStyles.StyleText,
                             ),
                           ),
                         ), //Поле почты
@@ -98,9 +102,11 @@ class RegPage extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(20)
                             ),
                             child: TextField(
-                              decoration: TextFields.FieldDec_2,
+                              decoration: TextFields.FieldDec.copyWith(
+                                labelText: 'Password'
+                              ),
                               cursorColor: Colors.white,
-                              style: TextStyles.StyleText_normal,
+                              style: TextStyles.StyleText,
                             ),
                           ),
                         ),
@@ -121,9 +127,11 @@ class RegPage extends StatelessWidget {
                             ),
                             child: TextField(
                               obscureText: true,
-                              decoration: TextFields.FieldDec_3,
+                              decoration: TextFields.FieldDec.copyWith(
+                                labelText: 'Confirm Password'
+                              ),
                               cursorColor: Colors.white,
-                              style: TextStyles.StyleText_normal,
+                              style: TextStyles.StyleText,
                             ),
                           ),
                         ),
@@ -143,7 +151,7 @@ class RegPage extends StatelessWidget {
                                 },
                                 child: GradientText(
                                   'Sign Up',
-                                  style: TextStyles.StyleText_normal,
+                                  style: TextStyles.StyleText,
                                   colors: [
                                     Color.fromRGBO(195, 66, 218, 1),
                                     Color.fromRGBO(103, 58, 183, 1)
@@ -175,7 +183,9 @@ class RegPage extends StatelessWidget {
                                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                                   child: Text(
                                       "Or Sign Up with",
-                                      style: TextStyles.StyleText_smaller
+                                      style: TextStyles.StyleText.copyWith(
+                                        fontSize: 15
+                                      )
                                   ),
                                 ),
                                 Expanded(child: Divider(
@@ -195,7 +205,9 @@ class RegPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text("Already have an account?",
-                                style: TextStyles.StyleText_smaller,
+                                style: TextStyles.StyleText.copyWith(
+                                  fontSize: 15
+                                ),
                               ),
                               TextButton(onPressed: (){
                                 Navigator.pushReplacement(

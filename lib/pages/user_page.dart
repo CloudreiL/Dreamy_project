@@ -27,7 +27,9 @@ class _UserPageState extends State<UserPage>{
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
-          title: Text('User', style: TextStyles.StyleText_title),
+          title: Text('User', style: TextStyles.StyleText.copyWith(
+            fontSize: 30
+          )),
             backgroundColor: Colors.transparent
         ),
       ),

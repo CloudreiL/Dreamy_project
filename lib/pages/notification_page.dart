@@ -27,7 +27,9 @@ class _NotificationPageState extends State<NotificationPage>{
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
-          title: Text('Notifications', style: TextStyles.StyleText_title),
+          title: Text('Notifications', style: TextStyles.StyleText.copyWith(
+            fontSize: 30
+          )),
             backgroundColor: Colors.transparent
         ),
       ),

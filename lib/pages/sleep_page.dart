@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:dreamy_project/pages/test.dart';
 
 import 'package:dreamy_project/classes/style.dart';
 
@@ -27,8 +27,44 @@ class _SleepPageState extends State<SleepPage>{
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
-          title: Text('Sleep', style: TextStyles.StyleText_title),
+          title: Text('Sleep', style: TextStyles.StyleText.copyWith(
+            fontSize: 30
+          )),
             backgroundColor: Colors.transparent
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Padding(padding: EdgeInsets.all(10), child:
+                InkWell(
+                  child: Image.asset("assets/images/buttons/Dream Diary.png", width: 350,),
+                  borderRadius: BorderRadius.circular(15),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const TestPage()),
+                    );
+                  },
+                ),
+              ),
+              Padding(padding: EdgeInsets.all(10),
+                child: InkWell(
+                  onTap: (){},
+                  child: Image.asset("assets/images/buttons/Dream Calendar.png", width: 350,),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+              ),
+              Padding(padding: EdgeInsets.all(10),
+                child: InkWell(
+                  onTap: (){},
+                  child: Image.asset("assets/images/buttons/Dream Book.png", width: 350,),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

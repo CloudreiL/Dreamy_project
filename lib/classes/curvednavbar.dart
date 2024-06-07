@@ -2,6 +2,7 @@ import 'package:dreamy_project/pages/home_page.dart';
 import 'package:dreamy_project/pages/notification_page.dart';
 import 'package:dreamy_project/pages/sleep_page.dart';
 import 'package:dreamy_project/pages/user_page.dart';
+import 'package:dreamy_project/pages/test.dart';
 
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
@@ -18,7 +19,8 @@ class _BottomNavBarState extends State<BottomNavBar>{
     HomePage(),
     SleepPage(),
     NotificationPage(),
-    UserPage()
+    UserPage(),
+    TestPage()
   ];
 
   int _selectedIndex = 0;
