@@ -38,6 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   simple_gradient_text: ^1.3.0
   fl_chart: ^0.68.0
+  gradient_icon: ^2.0.9
 
 dev_dependencies:
   flutter_test:
