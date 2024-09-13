@@ -163,7 +163,7 @@ class _NotificationPageState extends State<NotificationPage> {
                                 value: value, label: value);
                           }).toList(),
                           textStyle: TextStyles.StyleText.copyWith(
-                              color: Colors.black),
+                              color: Colors.black, fontSize: 17),
                           inputDecorationTheme: DropDownMenuDec.MenuDec,
                           initialSelection: dropdownValue0,
                           onSelected: (String? newValue0) {
@@ -193,7 +193,7 @@ class _NotificationPageState extends State<NotificationPage> {
                                   value: value, label: value);
                             }).toList(),
                             textStyle: TextStyles.StyleText.copyWith(
-                                color: Colors.black),
+                                color: Colors.black, fontSize: 17),
                             inputDecorationTheme: DropDownMenuDec.MenuDec,
                             initialSelection: dropdownValue1,
                             onSelected: (String? newValue1) {

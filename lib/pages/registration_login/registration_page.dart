@@ -20,6 +20,13 @@ class _RegPageState extends State<RegPage> {
   bool isHidden1 = true;
 
   @override
+  void initState(){
+    super.initState();
+    email = '';
+    firstPassword = '';
+    secPassword = '';
+  }
+
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
@@ -31,235 +38,269 @@ class _RegPageState extends State<RegPage> {
       ),
 
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.transparent,
-        body: SingleChildScrollView(
-          child: Center(
-              child: Column(
-                children: [
-                  Padding(padding: EdgeInsets.only(top:130),
-                      child: Text(
-                        'Create an account',
-                        style: TextStyles.StyleText.copyWith(
-                          fontSize: 30
-                        ),
-                      )
+        body: Center(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.13,
+                ),
+                Text(
+                  'Create an account',
+                  style: TextStyles.StyleText.copyWith(
+                    fontSize: 30
                   ),
-                    Text(
-                      "to get started now!",
-                      style: TextStyles.StyleText,
-                    ),
+                ),
+                  Text(
+                    "to get started now!",
+                    style: TextStyles.StyleText,
+                  ),
 
-                  SizedBox(height: 50),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 1,
-                    margin: EdgeInsets.only(left:20, right:20),
-                    height: 368,
-                    decoration: ContainerDecor.ContainerDec,
-                    child: Column(
-                      children: [
-                        Padding(padding: EdgeInsets.only(top:10,bottom: 10),
-                          child: Image.asset('assets/icons/app_icon/android/res/mipmap-xxxhdpi/Dreamy_monochrome.png', width: 98, height: 77,),
-                        ),
-                        Padding(padding: EdgeInsets.only(right: 10, left: 10),
-                          child: Container(
-                            height: 50,
-                            width: MediaQuery.of(context).size.width * 1,
-                            margin: EdgeInsets.only(left:5, right:5),
-                            decoration: BoxDecoration(
-                                boxShadow: [BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    offset: Offset(0,3),
-                                    spreadRadius: 5,
-                                    blurRadius: 10
-                                ),
-                                ],
-                                borderRadius: BorderRadius.circular(20)
-                            ),
-                            child: TextField(
-                              decoration: TextFields.FieldDec.copyWith(
-                                labelText: 'Email Address'
+                SizedBox(height: 50),
+                Container(
+                  width: MediaQuery.of(context).size.width * 1,
+                  margin: EdgeInsets.only(left:20, right:20),
+                  height: 368,
+                  decoration: ContainerDecor.ContainerDec,
+                  child: Column(
+                    children: [
+                      Padding(padding: EdgeInsets.only(top:10,bottom: 10),
+                        child: Image.asset('assets/icons/app_icon/android/res/mipmap-xxxhdpi/Dreamy_monochrome.png', width: 98, height: 77,),
+                      ),
+                      Padding(padding: EdgeInsets.only(right: 10, left: 10),
+                        child: Container(
+                          height: 50,
+                          width: MediaQuery.of(context).size.width * 1,
+                          margin: EdgeInsets.only(left:5, right:5),
+                          decoration: BoxDecoration(
+                              boxShadow: [BoxShadow(
+                                  color: Colors.black.withOpacity(0.2),
+                                  offset: Offset(0,3),
+                                  spreadRadius: 5,
+                                  blurRadius: 10
                               ),
-                              cursorColor: Colors.white,
-                              style: TextStyles.StyleText,
-
-                              onChanged: (value0) {
-                                 email = value0;
-                              },
-                            ),
+                              ],
+                              borderRadius: BorderRadius.circular(20)
                           ),
-                        ), //Поле почты
-                        SizedBox(height: 10),
-                        Padding(padding: EdgeInsets.only(top: 10, right: 10, left: 10),
-                          child: Container(
-                            height: 50,
-                            width: MediaQuery.of(context).size.width * 1,
-                            margin: EdgeInsets.only(left:5, right:5),
-                            decoration: BoxDecoration(
-                                boxShadow: [BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    offset: Offset(0,3),
-                                    spreadRadius: 5,
-                                    blurRadius: 10
-                                ),
-                                ],
-                                borderRadius: BorderRadius.circular(20)
+                          child: TextField(
+                            decoration: TextFields.FieldDec.copyWith(
+                              labelText: 'Email Address'
                             ),
-                            child: TextField(
-                              obscureText: isHidden0,
-                              decoration: TextFields.FieldDec.copyWith(
-                                labelText: 'Password',
-                                  suffixIcon: IconButton(onPressed: (){
-                                    setState(() {
-                                      isHidden0 = !isHidden0;
-                                    });
-                                  }, icon: Icon(
-                                    isHidden0? Icons.remove_red_eye : Icons.remove_red_eye_outlined, color: Colors.white,
-                                  ))
-                              ),
-                              cursorColor: Colors.white,
-                              style: TextStyles.StyleText,
+                            cursorColor: Colors.white,
+                            style: TextStyles.StyleText,
 
-                              onChanged: (value1) {
-                                firstPassword = value1;
-                              },
-                            ),
+                            onChanged: (value0) {
+                               email = value0;
+                            },
                           ),
                         ),
-                        SizedBox(height: 10),
-                        Padding(padding: EdgeInsets.only(top: 10, right: 10, left: 10),
-                          child: Container(
-                            height: 50,
-                            width: MediaQuery.of(context).size.width * 1,
-                            margin: EdgeInsets.only(left:5, right:5),
-                            decoration: BoxDecoration(
-                                boxShadow: [BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    offset: Offset(0,3),
-                                    spreadRadius: 5,
-                                    blurRadius: 10
-                                ),
-                                ],
-                                borderRadius: BorderRadius.circular(20)
-                            ),
-                            child: TextField(
-                              obscureText: isHidden1,
-                              decoration: TextFields.FieldDec.copyWith(
-                                labelText: 'Confirm Password',
-                                  suffixIcon: IconButton(onPressed: (){
-                                    setState(() {
-                                      isHidden1 = !isHidden1;
-                                    });
-                                  }, icon: Icon(
-                                    isHidden1? Icons.remove_red_eye : Icons.remove_red_eye_outlined, color: Colors.white,
-                                  ))
+                      ), //Поле почты
+                      SizedBox(height: 10),
+                      Padding(padding: EdgeInsets.only(top: 10, right: 10, left: 10),
+                        child: Container(
+                          height: 50,
+                          width: MediaQuery.of(context).size.width * 1,
+                          margin: EdgeInsets.only(left:5, right:5),
+                          decoration: BoxDecoration(
+                              boxShadow: [BoxShadow(
+                                  color: Colors.black.withOpacity(0.2),
+                                  offset: Offset(0,3),
+                                  spreadRadius: 5,
+                                  blurRadius: 10
                               ),
-                              cursorColor: Colors.white,
-                              style: TextStyles.StyleText,
+                              ],
+                              borderRadius: BorderRadius.circular(20)
+                          ),
+                          child: TextField(
+                            obscureText: isHidden0,
+                            decoration: TextFields.FieldDec.copyWith(
+                              labelText: 'Password',
+                                suffixIcon: IconButton(onPressed: (){
+                                  setState(() {
+                                    isHidden0 = !isHidden0;
+                                  });
+                                }, icon: Icon(
+                                  isHidden0? Icons.remove_red_eye : Icons.remove_red_eye_outlined, color: Colors.white,
+                                ))
                             ),
+                            cursorColor: Colors.white,
+                            style: TextStyles.StyleText,
+
+                            onChanged: (value1) {
+                              firstPassword = value1;
+                            },
                           ),
                         ),
-                        // Поле пароля
-                        SizedBox(height: 15),
-                        Padding(padding: EdgeInsets.only(left: 15, right: 15, bottom: 15),
-                          child: Container(
-                              width: 250,
-                              child: ElevatedButton(
-                                onPressed: (){
-                                  Navigator.push(
+                      ),
+                      SizedBox(height: 10),
+                      Padding(padding: EdgeInsets.only(top: 10, right: 10, left: 10),
+                        child: Container(
+                          height: 50,
+                          width: MediaQuery.of(context).size.width * 1,
+                          margin: EdgeInsets.only(left:5, right:5),
+                          decoration: BoxDecoration(
+                              boxShadow: [BoxShadow(
+                                  color: Colors.black.withOpacity(0.2),
+                                  offset: Offset(0,3),
+                                  spreadRadius: 5,
+                                  blurRadius: 10
+                              ),
+                              ],
+                              borderRadius: BorderRadius.circular(20)
+                          ),
+                          child: TextField(
+                            obscureText: isHidden1,
+                            decoration: TextFields.FieldDec.copyWith(
+                              labelText: 'Confirm Password',
+                                suffixIcon: IconButton(onPressed: (){
+                                  setState(() {
+                                    isHidden1 = !isHidden1;
+                                  });
+                                }, icon: Icon(
+                                  isHidden1? Icons.remove_red_eye : Icons.remove_red_eye_outlined, color: Colors.white,
+                                ))
+                            ),
+                            cursorColor: Colors.white,
+                            style: TextStyles.StyleText,
+
+                            onChanged: (value2) {
+                              secPassword = value2;
+                            },
+                          ),
+                        ),
+                      ),
+                      // Поле пароля
+                      SizedBox(height: 15),
+                      Padding(padding: EdgeInsets.only(left: 15, right: 15, bottom: 15),
+                        child: Container(
+                            width: 250,
+                            child: ElevatedButton(
+                              onPressed: (){
+                                if(email.trim().isEmpty || firstPassword.trim().isEmpty || secPassword.trim().isEmpty){
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                          'Oops! Looks like not everything is filled :(',
+                                          style: TextStyle(
+                                              fontSize: 15, fontFamily: 'FiraSans_Regular', color: Colors.white
+                                          ),
+                                        ),
+                                        duration:Duration(seconds: 2),
+                                      )
+                                  );
+                                }
+                                else if (secPassword != firstPassword){
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                          "Passwords don't match",
+                                          style: TextStyle(
+                                              fontSize: 15, fontFamily: 'FiraSans_Regular', color: Colors.white
+                                          ),
+                                        ),
+                                        duration:Duration(seconds: 2),
+                                      )
+                                  );
+                                }
+
+                                else{
+                                  Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => EmailVerification(userEmail: email),
                                       )
                                   );
-                                },
-                                child: GradientText(
-                                  'Sign Up',
-                                  style: TextStyles.StyleText,
-                                  colors: [
-                                    Color.fromRGBO(195, 66, 218, 1),
-                                    Color.fromRGBO(103, 58, 183, 1)
-                                  ],
+                                }
+
+                              },
+                              child: GradientText(
+                                'Sign Up',
+                                style: TextStyles.StyleText,
+                                colors: [
+                                  Color.fromRGBO(195, 66, 218, 1),
+                                  Color.fromRGBO(103, 58, 183, 1)
+                                ],
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white,
+                              ),
+                            )
+                        ),
+                      ), //Кнопка логина
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 5.0),
+                  child: SizedBox(height: MediaQuery.of(context).size.height * 0.5/ 100,),
+                ),
+                Container(
+                  child: Center(
+                    child: Column(
+                      children: [
+                        Padding(padding: EdgeInsets.symmetric(vertical: 20, horizontal: 25),
+                          child: Row(
+                            children: [
+                              Expanded(child: Divider(
+                                color: Colors.white,
+                                thickness: 1,
+                              ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                                child: Text(
+                                    "Or Sign Up with",
+                                    style: TextStyles.StyleText.copyWith(
+                                      fontSize: 15
+                                    )
                                 ),
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.white,
-                                ),
-                              )
+                              ),
+                              Expanded(child: Divider(
+                                color: Colors.white,
+                                thickness: 1,
+                              ),
+                              ),
+                            ],
                           ),
-                        ), //Кнопка логина
+                        ),
+                        ElevatedButton(
+                          onPressed: (){},
+                          child: Image.asset("assets/images/google-symbol.png", height: 31, width: 31),
+                        ),
+                        SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("Already have an account?",
+                              style: TextStyles.StyleText.copyWith(
+                                fontSize: 15
+                              ),
+                            ),
+                            TextButton(onPressed: (){
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const LoginPage(),
+                                  )
+                              );
+                            },
+                                child: Text("Login Now",
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        fontFamily: 'FiraSans_Regular',
+                                        color: Color.fromRGBO(216, 120, 213, 1)
+                                    )
+                                )
+                            )
+                          ],
+                        )
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 5.0),
-                    child: SizedBox(height: MediaQuery.of(context).size.height * 0.5/ 100,),
-                  ),
-                  Container(
-                    child: Center(
-                      child: Column(
-                        children: [
-                          Padding(padding: EdgeInsets.symmetric(vertical: 20, horizontal: 25),
-                            child: Row(
-                              children: [
-                                Expanded(child: Divider(
-                                  color: Colors.white,
-                                  thickness: 1,
-                                ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                                  child: Text(
-                                      "Or Sign Up with",
-                                      style: TextStyles.StyleText.copyWith(
-                                        fontSize: 15
-                                      )
-                                  ),
-                                ),
-                                Expanded(child: Divider(
-                                  color: Colors.white,
-                                  thickness: 1,
-                                ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          ElevatedButton(
-                            onPressed: (){},
-                            child: Image.asset("assets/images/google-symbol.png", height: 31, width: 31),
-                          ),
-                          SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("Already have an account?",
-                                style: TextStyles.StyleText.copyWith(
-                                  fontSize: 15
-                                ),
-                              ),
-                              TextButton(onPressed: (){
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const LoginPage(),
-                                    )
-                                );
-                              },
-                                  child: Text("Login Now",
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          fontFamily: 'FiraSans_Regular',
-                                          color: Color.fromRGBO(216, 120, 213, 1)
-                                      )
-                                  )
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  )
-                ],
-              )
-          ),
+                )
+              ],
+            )
         ),
       ),
     );

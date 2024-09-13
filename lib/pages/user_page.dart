@@ -120,66 +120,81 @@ class _UserPageState extends State<UserPage> {
                   ],
                 ),
                 Center(
-                  child: Column(
-                    children: [
-                      Text(
-                        'User',
-                        style: TextStyles.StyleText.copyWith(fontSize: 30),
-                      ),
-                      SizedBox(height: 37),
-                      Text(
-                        'Your week',
-                        style: TextStyles.StyleText,
-                      ),
-                      Container(
-                          height: 80,
-                          width: MediaQuery.of(context).size.width * 1,
-                          margin: EdgeInsets.only(left: 15, right: 15, top: 5),
-                          decoration: ContainerDecor.ContainerDec.copyWith(
-                            gradient: LinearGradient(
-                              begin: Alignment.centerRight,
-                              end: Alignment.centerLeft,
-                              colors: [
-                                Color.fromRGBO(103, 58, 183, 1),
-                                Color.fromRGBO(195, 66, 218, 1)
-                              ],
-                            ),
-                          )),
-                      SizedBox(height: 110),
-                      Container(
-                          width: 198,
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            child: GradientText(
-                              'Edit profile',
-                              style: TextStyles.StyleText,
-                              colors: [
-                                Color.fromRGBO(195, 66, 218, 1),
-                                Color.fromRGBO(103, 58, 183, 1)
-                              ],
-                            ),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white,
-                            ),
-                          )),
-                      SizedBox(height: 10),
-                      Container(
-                          width: 198,
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            child: GradientText(
-                              'Settings',
-                              style: TextStyles.StyleText,
-                              colors: [
-                                Color.fromRGBO(195, 66, 218, 1),
-                                Color.fromRGBO(103, 58, 183, 1)
-                              ],
-                            ),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white,
-                            ),
-                          )),
-                    ],
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.5,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Text(
+                          'User',
+                          style: TextStyles.StyleText.copyWith(fontSize: 30),
+                        ),
+                        Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(
+                                'Your week',
+                                style: TextStyles.StyleText,
+                              ),
+                              Container(
+                                  height: 80,
+                                  width: MediaQuery.of(context).size.width * 1,
+                                  margin: EdgeInsets.only(left: 15, right: 15, top: 5),
+                                  decoration: ContainerDecor.ContainerDec.copyWith(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.centerRight,
+                                      end: Alignment.centerLeft,
+                                      colors: [
+                                        Color.fromRGBO(103, 58, 183, 1),
+                                        Color.fromRGBO(195, 66, 218, 1)
+                                      ],
+                                    ),
+                                  )),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          child: Column(
+                            children: [
+                              Container(
+                                  width: 198,
+                                  margin: EdgeInsets.only(bottom: 10),
+                                  child: ElevatedButton(
+                                    onPressed: () {},
+                                    child: GradientText(
+                                      'Edit profile',
+                                      style: TextStyles.StyleText,
+                                      colors: [
+                                        Color.fromRGBO(195, 66, 218, 1),
+                                        Color.fromRGBO(103, 58, 183, 1)
+                                      ],
+                                    ),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.white,
+                                    ),
+                                  )),
+                              Container(
+                                  width: 198,
+                                  child: ElevatedButton(
+                                    onPressed: () {},
+                                    child: GradientText(
+                                      'Settings',
+                                      style: TextStyles.StyleText,
+                                      colors: [
+                                        Color.fromRGBO(195, 66, 218, 1),
+                                        Color.fromRGBO(103, 58, 183, 1)
+                                      ],
+                                    ),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.white,
+                                    ),
+                                  )),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 )
               ],

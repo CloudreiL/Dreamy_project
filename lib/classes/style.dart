@@ -53,7 +53,7 @@ class DropDownMenuDec {
   static InputDecorationTheme MenuDec = InputDecorationTheme(
       isDense: true,
       border: OutlineInputBorder(borderRadius: BorderRadius.circular(40)),
-      labelStyle: TextStyles.StyleText.copyWith(color: Colors.black),
+      labelStyle: TextStyles.StyleText.copyWith(color: Colors.black, fontSize: 15),
       fillColor: Colors.white,
       filled: true,
       counterStyle: TextStyles.StyleText,
