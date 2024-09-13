@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:dreamy_project/classes/style.dart';
-import 'package:dreamy_project/classes/curvednavbar.dart';
-
 import 'package:dreamy_project/pages/registration_login/login_page.dart';
-
 import 'package:simple_gradient_text/simple_gradient_text.dart';
+import 'package:dreamy_project/pages/registration_login/email.dart';
 
-class RegPage extends StatelessWidget {
+class RegPage extends StatefulWidget {
   const RegPage({super.key});
+
+  @override
+  State<RegPage> createState() => _RegPageState();
+}
+
+class _RegPageState extends State<RegPage> {
+  static String email = '';
+  static String firstPassword = '';
+  static String secPassword = '';
+
+  bool isHidden0 = true;
+  bool isHidden1 = true;
 
   @override
   Widget build(BuildContext context) {
@@ -41,23 +51,10 @@ class RegPage extends StatelessWidget {
 
                   SizedBox(height: 50),
                   Container(
-                    width: 353,
+                    width: MediaQuery.of(context).size.width * 1,
+                    margin: EdgeInsets.only(left:20, right:20),
                     height: 368,
-                    decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
-                          colors: [Color.fromRGBO(103, 58, 183, 1), Color.fromRGBO(195, 66, 218, 1)],
-                        ),
-                        boxShadow: [BoxShadow(
-                            color: Colors.black.withOpacity(0.5),
-                            offset: Offset(0,3),
-                            spreadRadius: 1,
-                            blurRadius: 10
-                        )
-                        ],
-                        borderRadius: BorderRadius.circular(15)
-                    ),
+                    decoration: ContainerDecor.ContainerDec,
                     child: Column(
                       children: [
                         Padding(padding: EdgeInsets.only(top:10,bottom: 10),
@@ -66,7 +63,8 @@ class RegPage extends StatelessWidget {
                         Padding(padding: EdgeInsets.only(right: 10, left: 10),
                           child: Container(
                             height: 50,
-                            width: 350,
+                            width: MediaQuery.of(context).size.width * 1,
+                            margin: EdgeInsets.only(left:5, right:5),
                             decoration: BoxDecoration(
                                 boxShadow: [BoxShadow(
                                     color: Colors.black.withOpacity(0.2),
@@ -83,6 +81,10 @@ class RegPage extends StatelessWidget {
                               ),
                               cursorColor: Colors.white,
                               style: TextStyles.StyleText,
+
+                              onChanged: (value0) {
+                                 email = value0;
+                              },
                             ),
                           ),
                         ), //Поле почты
@@ -90,7 +92,8 @@ class RegPage extends StatelessWidget {
                         Padding(padding: EdgeInsets.only(top: 10, right: 10, left: 10),
                           child: Container(
                             height: 50,
-                            width: 350,
+                            width: MediaQuery.of(context).size.width * 1,
+                            margin: EdgeInsets.only(left:5, right:5),
                             decoration: BoxDecoration(
                                 boxShadow: [BoxShadow(
                                     color: Colors.black.withOpacity(0.2),
@@ -102,11 +105,23 @@ class RegPage extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(20)
                             ),
                             child: TextField(
+                              obscureText: isHidden0,
                               decoration: TextFields.FieldDec.copyWith(
-                                labelText: 'Password'
+                                labelText: 'Password',
+                                  suffixIcon: IconButton(onPressed: (){
+                                    setState(() {
+                                      isHidden0 = !isHidden0;
+                                    });
+                                  }, icon: Icon(
+                                    isHidden0? Icons.remove_red_eye : Icons.remove_red_eye_outlined, color: Colors.white,
+                                  ))
                               ),
                               cursorColor: Colors.white,
                               style: TextStyles.StyleText,
+
+                              onChanged: (value1) {
+                                firstPassword = value1;
+                              },
                             ),
                           ),
                         ),
@@ -114,7 +129,8 @@ class RegPage extends StatelessWidget {
                         Padding(padding: EdgeInsets.only(top: 10, right: 10, left: 10),
                           child: Container(
                             height: 50,
-                            width: 350,
+                            width: MediaQuery.of(context).size.width * 1,
+                            margin: EdgeInsets.only(left:5, right:5),
                             decoration: BoxDecoration(
                                 boxShadow: [BoxShadow(
                                     color: Colors.black.withOpacity(0.2),
@@ -126,9 +142,16 @@ class RegPage extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(20)
                             ),
                             child: TextField(
-                              obscureText: true,
+                              obscureText: isHidden1,
                               decoration: TextFields.FieldDec.copyWith(
-                                labelText: 'Confirm Password'
+                                labelText: 'Confirm Password',
+                                  suffixIcon: IconButton(onPressed: (){
+                                    setState(() {
+                                      isHidden1 = !isHidden1;
+                                    });
+                                  }, icon: Icon(
+                                    isHidden1? Icons.remove_red_eye : Icons.remove_red_eye_outlined, color: Colors.white,
+                                  ))
                               ),
                               cursorColor: Colors.white,
                               style: TextStyles.StyleText,
@@ -142,10 +165,10 @@ class RegPage extends StatelessWidget {
                               width: 250,
                               child: ElevatedButton(
                                 onPressed: (){
-                                  Navigator.pushReplacement(
+                                  Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => const BottomNavBar(),
+                                        builder: (context) => EmailVerification(userEmail: email),
                                       )
                                   );
                                 },
@@ -166,7 +189,10 @@ class RegPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(height: 60),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5.0),
+                    child: SizedBox(height: MediaQuery.of(context).size.height * 0.5/ 100,),
+                  ),
                   Container(
                     child: Center(
                       child: Column(

@@ -2,11 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:dreamy_project/classes/style.dart';
 import 'package:dreamy_project/classes/curvednavbar.dart';
 import 'package:dreamy_project/pages/registration_login/registration_page.dart';
-
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  bool isHidden = true;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +30,7 @@ class LoginPage extends StatelessWidget {
         body: SingleChildScrollView(
             child: Center(
               child: Column(
+
                 children: [
                   Padding(padding: EdgeInsets.only(top:130),
                       child: Text(
@@ -41,23 +48,10 @@ class LoginPage extends StatelessWidget {
 
                 SizedBox(height: 50),
                       Container(
-                        width: 353,
+                        width: MediaQuery.of(context).size.width * 1,
+                        margin: EdgeInsets.only(left:20, right:20),
                         height: 368,
-                        decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.centerLeft,
-                              end: Alignment.centerRight,
-                              colors: [Color.fromRGBO(103, 58, 183, 1), Color.fromRGBO(195, 66, 218, 1)],
-                            ),
-                            boxShadow: [BoxShadow(
-                                color: Colors.black.withOpacity(0.5),
-                                offset: Offset(0,3),
-                                spreadRadius: 1,
-                                blurRadius: 10
-                              )
-                            ],
-                            borderRadius: BorderRadius.circular(15)
-                        ),
+                        decoration: ContainerDecor.ContainerDec,
                         child: Column(
                           children: [
                             Padding(padding: EdgeInsets.only(top:10,bottom: 20),
@@ -66,7 +60,8 @@ class LoginPage extends StatelessWidget {
                             Padding(padding: EdgeInsets.all(10),
                               child: Container(
                                 height: 50,
-                                width: 350,
+                                width: MediaQuery.of(context).size.width * 1,
+                                margin: EdgeInsets.only(left:5, right:5),
                                 decoration: BoxDecoration(
                                     boxShadow: [BoxShadow(
                                         color: Colors.black.withOpacity(0.2),
@@ -90,7 +85,8 @@ class LoginPage extends StatelessWidget {
                             Padding(padding: EdgeInsets.only(top: 10, right: 10, left: 10),
                               child: Container(
                                 height: 50,
-                                width: 350,
+                                width: MediaQuery.of(context).size.width * 1,
+                                margin: EdgeInsets.only(left:5, right:5),
                                 decoration: BoxDecoration(
                                     boxShadow: [BoxShadow(
                                         color: Colors.black.withOpacity(0.2),
@@ -102,9 +98,16 @@ class LoginPage extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(20)
                                 ),
                                 child: TextField(
-                                  obscureText: true,
+                                  obscureText: isHidden,
                                   decoration: TextFields.FieldDec.copyWith(
-                                    labelText: 'Password'
+                                    labelText: 'Password',
+                                    suffixIcon: IconButton(onPressed: (){
+                                      setState(() {
+                                        isHidden = !isHidden;
+                                      });
+                                    }, icon: Icon(
+                                      isHidden? Icons.remove_red_eye : Icons.remove_red_eye_outlined, color: Colors.white,
+                                    ))
                                   ),
                                   cursorColor: Colors.white,
                                   style: TextStyles.StyleText,
@@ -157,7 +160,10 @@ class LoginPage extends StatelessWidget {
                           ],
                         ),
                       ),
-                  SizedBox(height: 60),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 5.0),
+                    child: SizedBox(height: MediaQuery.of(context).size.height * 0.5 /100),
+                  ),
                   Container(
                     child: Center(
                       child: Column(
@@ -191,7 +197,7 @@ class LoginPage extends StatelessWidget {
                             onPressed: (){},
                             child: Image.asset("assets/images/google-symbol.png", height: 31, width: 31),
                           ),
-                          SizedBox(height: 20),
+                          SizedBox(height: 15),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [

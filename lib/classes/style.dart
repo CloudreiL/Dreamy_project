@@ -19,6 +19,8 @@ class TextFields {
   );
 }
 
+
+
 class ContainerDecor {
   static BoxDecoration ContainerDec = BoxDecoration(
       gradient: LinearGradient(
@@ -37,6 +39,14 @@ class ContainerDecor {
             blurRadius: 10)
       ],
       borderRadius: BorderRadius.circular(15));
+
+  static BoxDecoration WhiteBox = BoxDecoration(
+      color: Color.fromRGBO(255, 255, 255, 200),
+      borderRadius: BorderRadius.circular(20),
+      border: Border.all(
+          color: Colors.white
+      )
+  );
 }
 
 class DropDownMenuDec {
