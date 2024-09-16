@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "201405856975",
+    "project_id": "dreamy-9cd07",
+    "storage_bucket": "dreamy-9cd07.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:201405856975:android:a13d5495fcbbe392828bba",
+        "android_client_info": {
+          "package_name": "com.example.dreamy_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmpPwa4SG6gFLZlZ2F8bBxC69V-74vT6k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

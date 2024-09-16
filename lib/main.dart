@@ -1,11 +1,18 @@
 import 'package:dreamy_project/pages/registration_login/login_page.dart';
+import 'package:dreamy_project/pages/registration_login/login_page.dart';
+import 'package:dreamy_project/pages/registration_login/email.dart';
+import 'package:dreamy_project/classes/curvednavbar.dart';
+import 'package:dreamy_project/pages/registration_login/registration_page.dart';
+import 'package:dreamy_project/services/firebase_stream.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 
 
-void main() {
+void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -24,7 +31,13 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           useMaterial3: true,
         ),
-        home: const LoginPage()
+        routes: {
+          '/': (context) => const FirebaseStream(email: '',),
+          '/login': (context) => const LoginPage(),
+          '/registration': (context) => const RegPage(),
+          '/navbar': (context) => const BottomNavBar()
+        },
+      initialRoute: '/',
     );
   }
 }

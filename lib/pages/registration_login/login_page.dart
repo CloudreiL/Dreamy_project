@@ -3,6 +3,9 @@ import 'package:dreamy_project/classes/style.dart';
 import 'package:dreamy_project/classes/curvednavbar.dart';
 import 'package:dreamy_project/pages/registration_login/registration_page.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
+import 'package:email_validator/email_validator.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -13,14 +16,26 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool isHidden = true;
-  static String email = '';
-  static String password = '';
+  static String emailF = '';
+  static String passwordF = '';
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+
+  //final user = FirebaseAuth.instance.currentUser;
 
   @override
   void initState(){
     super.initState();
-    email = '';
-    password = '';
+    emailF = '';
+    passwordF = '';
+  }
+
+  void dispose(){
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
   }
 
   Widget build(BuildContext context) {
@@ -83,18 +98,21 @@ class _LoginPageState extends State<LoginPage> {
                                 borderRadius: BorderRadius.circular(20)
                             ),
                             child: TextField(
+                              controller: emailController,
+                              keyboardType: TextInputType.emailAddress,
+                              autocorrect: false,
                               decoration: TextFields.FieldDec.copyWith(
                                 labelText: 'Email Address'
                               ),
                               cursorColor: Colors.white,
                               style: TextStyles.StyleText,
                               onChanged: (value0) {
-                                email = value0;
+                                emailF = value0;
                               },
                             ),
                           ),
                         ), //Поле почты
-                        SizedBox(height: 20,),
+                        SizedBox(height: 20),
                         Padding(padding: EdgeInsets.only(top: 10, right: 10, left: 10),
                           child: Container(
                             height: 50,
@@ -111,6 +129,7 @@ class _LoginPageState extends State<LoginPage> {
                                 borderRadius: BorderRadius.circular(20)
                             ),
                             child: TextField(
+                              controller: passwordController,
                               obscureText: isHidden,
                               decoration: TextFields.FieldDec.copyWith(
                                 labelText: 'Password',
@@ -126,7 +145,7 @@ class _LoginPageState extends State<LoginPage> {
                               style: TextStyles.StyleText,
 
                               onChanged: (value1) {
-                                password = value1;
+                                passwordF = value1;
                               },
                             ),
                           ),
@@ -153,26 +172,38 @@ class _LoginPageState extends State<LoginPage> {
                               width: 250,
                               child: ElevatedButton(
                                 onPressed: (){
-                                  if(email.isEmpty || password.isEmpty){
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(
-                                          content: Text(
-                                            'Oops! Looks like not everything is filled :(',
-                                            style: TextStyle(
-                                                fontSize: 15, fontFamily: 'FiraSans_Regular', color: Colors.white
+                                    if(emailF.isEmpty || passwordF.isEmpty){
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(
+                                            content: Text(
+                                              'Oops! Looks like not everything is filled :(',
+                                              style: TextStyle(
+                                                  fontSize: 15, fontFamily: 'FiraSans_Regular', color: Colors.white
+                                              ),
                                             ),
-                                          ),
-                                          duration:Duration(seconds: 2),
-                                        )
-                                    );
-                                  }
-                                  else{
-                                    Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => const BottomNavBar(),
-                                        )
-                                    );
+                                            duration:Duration(seconds: 2),
+                                          )
+                                      );
+                                    }else if(!EmailValidator.validate(emailF)){
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(
+                                            content: Text(
+                                              'Input correct email',
+                                              style: TextStyle(
+                                                  fontSize: 15, fontFamily: 'FiraSans_Regular', color: Colors.white
+                                              ),
+                                            ),
+                                            duration:Duration(seconds: 2),
+                                          )
+                                      );
+                                    }
+                                    else{
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => const BottomNavBar(),
+                                          )
+                                      );
                                   }
                                 },
                                 child: GradientText(

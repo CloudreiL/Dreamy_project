@@ -15,13 +15,22 @@ class BottomNavBar extends StatefulWidget{
 }
 
 class _BottomNavBarState extends State<BottomNavBar>{
-  List Pages = [
-    HomePage(),
-    SleepPage(),
-    NotificationPage(),
-    UserPage(),
-    TestPage()
-  ];
+  Widget _getPage(int index) {
+    switch (index) {
+      case 0:
+        return HomePage();
+      case 1:
+        return SleepPage();
+      case 2:
+        return NotificationPage();
+      case 3:
+        return UserPage();
+      case 4:
+        return TestPage();
+      default:
+        return HomePage();
+    }
+  }
 
   int _selectedIndex = 0;
 
@@ -46,6 +55,7 @@ class _BottomNavBarState extends State<BottomNavBar>{
           color: Colors.black,
           backgroundColor: Colors.transparent,
 
+          animationDuration: Duration(milliseconds: 400),
           animationCurve: Curves.easeInOutCubicEmphasized,
           height: 50,
           buttonBackgroundColor: Colors.transparent,
@@ -62,7 +72,7 @@ class _BottomNavBarState extends State<BottomNavBar>{
           },
         ),
       ),
-      body: Pages[_selectedIndex],
+      body: _getPage(_selectedIndex)
     );
   }
 }

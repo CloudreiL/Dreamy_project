@@ -1,16 +1,60 @@
+import 'package:dreamy_project/pages/home_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'dart:async';
 import 'package:dreamy_project/classes/style.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:dreamy_project/pages/registration_login/registration_page.dart';
 
-class EmailVerification extends StatelessWidget{
+class EmailVerification extends StatefulWidget{
 
   final String userEmail;
   const EmailVerification({Key? key, required this.userEmail}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
+  State<EmailVerification> createState() => _EmailVerificationState();
+}
+
+class _EmailVerificationState extends State<EmailVerification> {
+  bool isVerified = false;
+
+  @override
+  void initState(){
+    super.initState();
+
+    isVerified = FirebaseAuth.instance.currentUser!.emailVerified;
+
+    if(!isVerified){
+      sendVerificationEmail();
+    }
+  }
+
+  Future<void> sendVerificationEmail() async{
+    try{
+      final user = FirebaseAuth.instance.currentUser!;
+      await user.sendEmailVerification();
+    }catch(e){
+      print(e);
+      if(mounted){
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text(
+                'Unknown error. Please contact TechSupp',
+                style: TextStyle(
+                    fontSize: 15, fontFamily: 'FiraSans_Regular', color: Colors.white
+                ),
+              ),
+              duration:Duration(seconds: 2),
+            )
+        );
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) => isVerified
+  ? const HomePage()
+  :Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
@@ -67,7 +111,7 @@ class EmailVerification extends StatelessWidget{
                                 maxLines: 2,
                               ),
                             Text(
-                              '$userEmail',
+                              '${widget.userEmail}',
                               textAlign: TextAlign.center,
                               style: TextStyles.StyleText.copyWith(fontSize: 20),
                             ),
@@ -105,4 +149,3 @@ class EmailVerification extends StatelessWidget{
       ),
     );
   }
-}

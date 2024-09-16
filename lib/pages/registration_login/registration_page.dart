@@ -1,8 +1,11 @@
+import 'package:dreamy_project/pages/registration_login/email.dart';
+import 'package:dreamy_project/services/firebase_stream.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:dreamy_project/classes/style.dart';
 import 'package:dreamy_project/pages/registration_login/login_page.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
-import 'package:dreamy_project/pages/registration_login/email.dart';
+import 'package:email_validator/email_validator.dart';
 
 class RegPage extends StatefulWidget {
   const RegPage({super.key});
@@ -12,19 +15,110 @@ class RegPage extends StatefulWidget {
 }
 
 class _RegPageState extends State<RegPage> {
-  static String email = '';
-  static String firstPassword = '';
-  static String secPassword = '';
 
   bool isHidden0 = true;
   bool isHidden1 = true;
 
+  TextEditingController emailController = TextEditingController();
+  TextEditingController fPasswordController = TextEditingController();
+  TextEditingController sPasswordController = TextEditingController();
+
   @override
-  void initState(){
-    super.initState();
-    email = '';
-    firstPassword = '';
-    secPassword = '';
+  void dispose(){
+    emailController.dispose();
+    fPasswordController.dispose();
+    sPasswordController.dispose();
+    super.dispose();
+  }
+
+  Future<void> signUp() async{
+
+    final navigator = Navigator.of(context);
+
+    if(fPasswordController.text != sPasswordController.text){
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              "Passwords don't match",
+              style: TextStyle(
+                  fontSize: 15, fontFamily: 'FiraSans_Regular', color: Colors.white
+              ),
+            ),
+            duration:Duration(seconds: 2),
+          )
+      );
+    }else if(emailController.text.trim().isEmpty || fPasswordController.text.trim().isEmpty || sPasswordController.text.trim().isEmpty){
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'Oops! Looks like not everything is filled :(',
+              style: TextStyle(
+                  fontSize: 15, fontFamily: 'FiraSans_Regular', color: Colors.white
+              ),
+            ),
+            duration:Duration(seconds: 2),
+          )
+      );
+    } else if(!EmailValidator.validate(emailController.text.trim())){
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'Input correct email',
+              style: TextStyle(
+                  fontSize: 15, fontFamily: 'FiraSans_Regular', color: Colors.white
+              ),
+            ),
+            duration:Duration(seconds: 2),
+          )
+      );
+    }
+
+    try{
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: emailController.text.trim(),
+          password: fPasswordController.text.trim(),
+      );
+    }on FirebaseAuthException catch (e){
+      print(e.code);
+      if(e.code == 'email-already-in-use'){
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text(
+                'Email already in use',
+                style: TextStyle(
+                    fontSize: 15, fontFamily: 'FiraSans_Regular', color: Colors.white
+                ),
+              ),
+              duration:Duration(seconds: 2),
+            )
+        );
+      }else if (e.code == 'weak-password'){
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text(
+                'Weak password.Password should be at least 6 characters',
+                style: TextStyle(
+                    fontSize: 15, fontFamily: 'FiraSans_Regular', color: Colors.white
+                ),
+              ),
+              duration:Duration(seconds: 2),
+            )
+        );
+      }else{
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text(
+                'Unknown error. Please contact TechSupp',
+                style: TextStyle(
+                    fontSize: 15, fontFamily: 'FiraSans_Regular', color: Colors.white
+                ),
+              ),
+              duration:Duration(seconds: 2),
+            )
+        );
+      }
+    }
+    navigator.pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
   }
 
   Widget build(BuildContext context) {
@@ -84,15 +178,13 @@ class _RegPageState extends State<RegPage> {
                               borderRadius: BorderRadius.circular(20)
                           ),
                           child: TextField(
+                            keyboardType: TextInputType.emailAddress,
+                            controller: emailController,
                             decoration: TextFields.FieldDec.copyWith(
                               labelText: 'Email Address'
                             ),
                             cursorColor: Colors.white,
                             style: TextStyles.StyleText,
-
-                            onChanged: (value0) {
-                               email = value0;
-                            },
                           ),
                         ),
                       ), //Поле почты
@@ -113,6 +205,7 @@ class _RegPageState extends State<RegPage> {
                               borderRadius: BorderRadius.circular(20)
                           ),
                           child: TextField(
+                            controller: fPasswordController,
                             obscureText: isHidden0,
                             decoration: TextFields.FieldDec.copyWith(
                               labelText: 'Password',
@@ -127,9 +220,6 @@ class _RegPageState extends State<RegPage> {
                             cursorColor: Colors.white,
                             style: TextStyles.StyleText,
 
-                            onChanged: (value1) {
-                              firstPassword = value1;
-                            },
                           ),
                         ),
                       ),
@@ -150,6 +240,8 @@ class _RegPageState extends State<RegPage> {
                               borderRadius: BorderRadius.circular(20)
                           ),
                           child: TextField(
+                            controller: sPasswordController,
+                            autocorrect: false,
                             obscureText: isHidden1,
                             decoration: TextFields.FieldDec.copyWith(
                               labelText: 'Confirm Password',
@@ -163,10 +255,6 @@ class _RegPageState extends State<RegPage> {
                             ),
                             cursorColor: Colors.white,
                             style: TextStyles.StyleText,
-
-                            onChanged: (value2) {
-                              secPassword = value2;
-                            },
                           ),
                         ),
                       ),
@@ -176,44 +264,7 @@ class _RegPageState extends State<RegPage> {
                         child: Container(
                             width: 250,
                             child: ElevatedButton(
-                              onPressed: (){
-                                if(email.trim().isEmpty || firstPassword.trim().isEmpty || secPassword.trim().isEmpty){
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                          'Oops! Looks like not everything is filled :(',
-                                          style: TextStyle(
-                                              fontSize: 15, fontFamily: 'FiraSans_Regular', color: Colors.white
-                                          ),
-                                        ),
-                                        duration:Duration(seconds: 2),
-                                      )
-                                  );
-                                }
-                                else if (secPassword != firstPassword){
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                          "Passwords don't match",
-                                          style: TextStyle(
-                                              fontSize: 15, fontFamily: 'FiraSans_Regular', color: Colors.white
-                                          ),
-                                        ),
-                                        duration:Duration(seconds: 2),
-                                      )
-                                  );
-                                }
-
-                                else{
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => EmailVerification(userEmail: email),
-                                      )
-                                  );
-                                }
-
-                              },
+                              onPressed: signUp,
                               child: GradientText(
                                 'Sign Up',
                                 style: TextStyles.StyleText,
