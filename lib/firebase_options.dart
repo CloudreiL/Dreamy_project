@@ -3,6 +3,7 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -46,29 +47,29 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAmpPwa4SG6gFLZlZ2F8bBxC69V-74vT6k',
-    appId: '1:201405856975:android:a13d5495fcbbe392828bba',
-    messagingSenderId: '201405856975',
-    projectId: 'dreamy-9cd07',
-    storageBucket: 'dreamy-9cd07.appspot.com',
+  static FirebaseOptions android = FirebaseOptions(
+    apiKey: dotenv.env['API_KEY_ANDROID'] ?? 'API_KEY NOT FOUND',
+    appId: dotenv.env['APP_ID_ANDROID'] ?? 'APP_ID NOT FOUND',
+    messagingSenderId: dotenv.env['MESSAGING_ID'] ?? 'MESSAGING_ID NOT FOUND',
+    projectId: dotenv.env['PROJECT_ID'] ?? 'PROJECT_ID NOT FOUND',
+    storageBucket: dotenv.env['STORAGE_ID'] ?? 'STORAGE_ID NOT FOUND',
   );
 
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyB_Q2XOcIu3EJyXLT9_oR-bQZGGhZcuC-8',
-    appId: '1:201405856975:ios:c3378f7969c962b6828bba',
-    messagingSenderId: '201405856975',
-    projectId: 'dreamy-9cd07',
-    storageBucket: 'dreamy-9cd07.appspot.com',
-    iosBundleId: 'com.example.dreamyProject',
+  static FirebaseOptions ios = FirebaseOptions(
+    apiKey: dotenv.env['API_KEY_IOS'] ?? 'API_KEY NOT FOUND',
+    appId: dotenv.env['APP_ID_IOS'] ?? 'APP_ID NOT FOUND',
+    messagingSenderId: dotenv.env['MESSAGING_ID'] ?? 'MESSAGING_ID NOT FOUND',
+    projectId: dotenv.env['PROJECT_ID'] ?? 'PROJECT_ID NOT FOUND',
+    storageBucket: dotenv.env['STORAGE_ID'] ?? 'STORAGE_ID NOT FOUND',
+    iosBundleId: dotenv.env['IOS_BUNDLE_ID'] ?? 'IOS_BUNDLE_ID NOT FOUND',
   );
 
-  static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyD4GrOYKEfPcmnqKAAJ5FPIE0gIJ2OmmEA',
-    appId: '1:201405856975:web:165ca6aebb5d3b21828bba',
-    messagingSenderId: '201405856975',
-    projectId: 'dreamy-9cd07',
-    authDomain: 'dreamy-9cd07.firebaseapp.com',
-    storageBucket: 'dreamy-9cd07.appspot.com',
+  static FirebaseOptions windows = FirebaseOptions(
+    apiKey: dotenv.env['API_KEY_WINDOWS'] ?? 'API_KEY_WINDOWS NOT FOUND',
+    appId: dotenv.env['APP_ID_WINDOWS'] ?? 'APP_ID_WINDOWS NOT FOUND',
+    messagingSenderId: dotenv.env['MESSAGING_ID'] ?? 'MESSAGING_ID NOT FOUND',
+    projectId: dotenv.env['PROJECT_ID'] ?? 'PROJECT_ID NOT FOUND',
+    authDomain: dotenv.env['AUTH_DOMAIN'] ?? 'AUTH_DOMAIN NOT FOUND',
+    storageBucket: dotenv.env['STORAGE_ID'] ?? 'STORAGE_ID NOT FOUND'
   );
 }
