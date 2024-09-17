@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         routes: {
-          '/': (context) => const FirebaseStream(email: '',),
+          '/': (context) => const FirebaseStream(),
           '/login': (context) => const LoginPage(),
           '/registration': (context) => const RegPage(),
           '/navbar': (context) => const BottomNavBar()

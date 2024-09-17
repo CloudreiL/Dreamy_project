@@ -1,4 +1,4 @@
-import 'package:dreamy_project/pages/home_page.dart';
+import 'package:dreamy_project/classes/curvednavbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -8,8 +8,7 @@ import 'package:dreamy_project/pages/registration_login/registration_page.dart';
 
 class EmailVerification extends StatefulWidget{
 
-  final String userEmail;
-  const EmailVerification({Key? key, required this.userEmail}) : super(key: key);
+  const EmailVerification({super.key});
 
   @override
   State<EmailVerification> createState() => _EmailVerificationState();
@@ -17,16 +16,46 @@ class EmailVerification extends StatefulWidget{
 
 class _EmailVerificationState extends State<EmailVerification> {
   bool isVerified = false;
+  String? userEmail;
+  Timer? timer;
 
   @override
   void initState(){
     super.initState();
 
-    isVerified = FirebaseAuth.instance.currentUser!.emailVerified;
+    userEmail = null;
+
+    final user = FirebaseAuth.instance.currentUser;
+    isVerified = user!.emailVerified;
+    userEmail = user.email;
 
     if(!isVerified){
       sendVerificationEmail();
+
+      timer = Timer.periodic(
+          const Duration(seconds: 3),
+          (_) => checkEmailVerified(),
+
+      );
     }
+  }
+
+  @override
+  void dispose(){
+    timer?.cancel();
+    super.dispose();
+  }
+
+  Future<void> checkEmailVerified() async{
+    await FirebaseAuth.instance.currentUser!.reload();
+
+    setState(() {
+      isVerified = FirebaseAuth.instance.currentUser!.emailVerified;
+    });
+
+    print(isVerified);
+
+    if(isVerified) timer?.cancel();
   }
 
   Future<void> sendVerificationEmail() async{
@@ -53,7 +82,7 @@ class _EmailVerificationState extends State<EmailVerification> {
 
   @override
   Widget build(BuildContext context) => isVerified
-  ? const HomePage()
+  ? const BottomNavBar()
   :Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -111,7 +140,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                                 maxLines: 2,
                               ),
                             Text(
-                              '${widget.userEmail}',
+                              '$userEmail',
                               textAlign: TextAlign.center,
                               style: TextStyles.StyleText.copyWith(fontSize: 20),
                             ),

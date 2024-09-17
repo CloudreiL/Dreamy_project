@@ -2,12 +2,11 @@ import 'package:dreamy_project/pages/registration_login/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:dreamy_project/pages/registration_login/email.dart';
-import 'package:dreamy_project/pages/home_page.dart';
+import 'package:dreamy_project/classes/curvednavbar.dart';
 import 'package:dreamy_project/pages/registration_login/registration_page.dart';
 
 class FirebaseStream extends StatelessWidget {
-  final String email;
-  const FirebaseStream({Key? key, required this.email});
+  const FirebaseStream({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +17,9 @@ class FirebaseStream extends StatelessWidget {
           return Container();
         } else if (snapshot.hasData) {
           if (!snapshot.data!.emailVerified) {
-            return EmailVerification(userEmail: email);
+            return EmailVerification();
           }
-          return const HomePage();
+          return BottomNavBar();
         } else{
           return LoginPage();
         }

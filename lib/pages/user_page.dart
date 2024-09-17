@@ -1,4 +1,5 @@
 import 'package:dreamy_project/classes/style.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_icon/gradient_icon.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
@@ -11,6 +12,16 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
+  final user = FirebaseAuth.instance.currentUser;
+
+  Future<void> signOut() async{
+    final navigator = Navigator.of(context);
+
+    await FirebaseAuth.instance.signOut();
+
+    navigator.pushNamedAndRemoveUntil('login',(Route<dynamic> route)=> false);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -161,9 +172,9 @@ class _UserPageState extends State<UserPage> {
                                   width: 198,
                                   margin: EdgeInsets.only(bottom: 10),
                                   child: ElevatedButton(
-                                    onPressed: () {},
+                                    onPressed: signOut,
                                     child: GradientText(
-                                      'Edit profile',
+                                      'Log Out',
                                       style: TextStyles.StyleText,
                                       colors: [
                                         Color.fromRGBO(195, 66, 218, 1),

@@ -31,95 +31,94 @@ class _RegPageState extends State<RegPage> {
     super.dispose();
   }
 
-  Future<void> signUp() async{
-
+  Future<void> signUp() async {
     final navigator = Navigator.of(context);
 
-    if(fPasswordController.text != sPasswordController.text){
+    // Проверяем, что все поля заполнены
+    if (emailController.text.trim().isEmpty ||
+        fPasswordController.text.trim().isEmpty ||
+        sPasswordController.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text(
-              "Passwords don't match",
-              style: TextStyle(
-                  fontSize: 15, fontFamily: 'FiraSans_Regular', color: Colors.white
-              ),
-            ),
-            duration:Duration(seconds: 2),
-          )
+        const SnackBar(
+          content: Text(
+            'Oops! Looks like not everything is filled :(',
+            style: TextStyle(
+                fontSize: 15, fontFamily: 'FiraSans_Regular', color: Colors.white),
+          ),
+          duration: Duration(seconds: 2),
+        ),
       );
-    }else if(emailController.text.trim().isEmpty || fPasswordController.text.trim().isEmpty || sPasswordController.text.trim().isEmpty){
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text(
-              'Oops! Looks like not everything is filled :(',
-              style: TextStyle(
-                  fontSize: 15, fontFamily: 'FiraSans_Regular', color: Colors.white
-              ),
-            ),
-            duration:Duration(seconds: 2),
-          )
-      );
-    } else if(!EmailValidator.validate(emailController.text.trim())){
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text(
-              'Input correct email',
-              style: TextStyle(
-                  fontSize: 15, fontFamily: 'FiraSans_Regular', color: Colors.white
-              ),
-            ),
-            duration:Duration(seconds: 2),
-          )
-      );
+      return; // Останавливаем выполнение функции, если проверка не пройдена
     }
 
-    try{
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: emailController.text.trim(),
-          password: fPasswordController.text.trim(),
+    // Проверяем, что email введён корректно
+    if (!EmailValidator.validate(emailController.text.trim())) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Input correct email',
+            style: TextStyle(
+                fontSize: 15, fontFamily: 'FiraSans_Regular', color: Colors.white),
+          ),
+          duration: Duration(seconds: 2),
+        ),
       );
-    }on FirebaseAuthException catch (e){
-      print(e.code);
-      if(e.code == 'email-already-in-use'){
+      return;
+    }
+
+    // Проверяем, что пароли совпадают
+    if (fPasswordController.text != sPasswordController.text) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            "Passwords don't match",
+            style: TextStyle(
+                fontSize: 15, fontFamily: 'FiraSans_Regular', color: Colors.white),
+          ),
+          duration: Duration(seconds: 2),
+        ),
+      );
+      return;
+    }
+
+    try {
+      // Пытаемся зарегистрировать пользователя в Firebase
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: fPasswordController.text.trim(),
+      );
+    } on FirebaseAuthException catch (e) {
+      // Обрабатываем возможные ошибки Firebase
+      if (e.code == 'email-already-in-use') {
         ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text(
-                'Email already in use',
-                style: TextStyle(
-                    fontSize: 15, fontFamily: 'FiraSans_Regular', color: Colors.white
-                ),
-              ),
-              duration:Duration(seconds: 2),
-            )
+          const SnackBar(
+            content: Text(
+              'Email already in use',
+              style: TextStyle(
+                  fontSize: 15, fontFamily: 'FiraSans_Regular', color: Colors.white),
+            ),
+            duration: Duration(seconds: 2),
+          ),
         );
-      }else if (e.code == 'weak-password'){
+      } else if (e.code == 'weak-password') {
         ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text(
-                'Weak password.Password should be at least 6 characters',
-                style: TextStyle(
-                    fontSize: 15, fontFamily: 'FiraSans_Regular', color: Colors.white
-                ),
-              ),
-              duration:Duration(seconds: 2),
-            )
-        );
-      }else{
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text(
-                'Unknown error. Please contact TechSupp',
-                style: TextStyle(
-                    fontSize: 15, fontFamily: 'FiraSans_Regular', color: Colors.white
-                ),
-              ),
-              duration:Duration(seconds: 2),
-            )
+          const SnackBar(
+            content: Text(
+              'Weak password. Password should be at least 6 characters',
+              style: TextStyle(
+                  fontSize: 15, fontFamily: 'FiraSans_Regular', color: Colors.white),
+            ),
+            duration: Duration(seconds: 2),
+          ),
         );
       }
+      return; // Останавливаем выполнение функции, если возникла ошибка Firebase
     }
+
+    // Переход на главную страницу после успешной регистрации
     navigator.pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
   }
+
 
   Widget build(BuildContext context) {
     return Container(

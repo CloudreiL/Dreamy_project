@@ -197,14 +197,6 @@ class _LoginPageState extends State<LoginPage> {
                                           )
                                       );
                                     }
-                                    else{
-                                      Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => const BottomNavBar(),
-                                          )
-                                      );
-                                  }
                                 },
                                 child: GradientText(
                                   'Login',
