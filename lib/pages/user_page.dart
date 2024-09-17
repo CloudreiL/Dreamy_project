@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_icon/gradient_icon.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
+import 'package:dreamy_project/pages/registration_login/login_page.dart';
 
 class UserPage extends StatefulWidget {
   const UserPage({super.key});
@@ -15,11 +16,26 @@ class _UserPageState extends State<UserPage> {
   final user = FirebaseAuth.instance.currentUser;
 
   Future<void> signOut() async{
-    final navigator = Navigator.of(context);
 
     await FirebaseAuth.instance.signOut();
 
-    navigator.pushNamedAndRemoveUntil('login',(Route<dynamic> route)=> false);
+    Navigator.pushReplacement(
+      context,
+        MaterialPageRoute(
+          builder: (context) => const LoginPage(),
+        )
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(
+          'You have successfully logged out of your account',
+          style: TextStyle(
+              fontSize: 15, fontFamily: 'FiraSans_Regular', color: Colors.white),
+        ),
+        duration: Duration(seconds: 2),
+      ),
+    );
   }
 
   @override

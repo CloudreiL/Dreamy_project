@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:dreamy_project/classes/style.dart';
-import 'package:dreamy_project/classes/curvednavbar.dart';
 import 'package:dreamy_project/pages/registration_login/registration_page.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPage extends StatefulWidget {
@@ -16,9 +14,6 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool isHidden = true;
-  static String emailF = '';
-  static String passwordF = '';
-
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -26,16 +21,83 @@ class _LoginPageState extends State<LoginPage> {
   //final user = FirebaseAuth.instance.currentUser;
 
   @override
-  void initState(){
-    super.initState();
-    emailF = '';
-    passwordF = '';
-  }
 
   void dispose(){
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
+  }
+
+  Future<void> login () async{
+    final navigator = Navigator.of(context);
+
+    if(emailController.text.trim().isEmpty || passwordController.text.trim().isEmpty){
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'Oops! Looks like not everything is filled :(',
+              style: TextStyle(
+                  fontSize: 15, fontFamily: 'FiraSans_Regular', color: Colors.white
+              ),
+            ),
+            duration:Duration(seconds: 2),
+          )
+      );
+      return;
+    }
+    if(!EmailValidator.validate(emailController.text.trim())){
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'Input correct email',
+              style: TextStyle(
+                  fontSize: 15, fontFamily: 'FiraSans_Regular', color: Colors.white
+              ),
+            ),
+            duration:Duration(seconds: 2),
+          )
+      );
+      return;
+    }
+
+    try{
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text.trim(),
+          password: passwordController.text.trim()
+      );
+    }on FirebaseAuthException catch(e){
+      print(e.code);
+
+      if (e.code == 'invalid-credential' || e.code == 'wrong-password') {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text(
+                'Invalid email or password. Try again',
+                style: TextStyle(
+                    fontSize: 15, fontFamily: 'FiraSans_Regular', color: Colors.white
+                ),
+              ),
+              duration:Duration(seconds: 2),
+            )
+        );
+        return;
+      }else{
+        ScaffoldMessenger.of(context).showSnackBar(
+             SnackBar(
+              content: Text(
+                'Error $e',
+                style: TextStyle(
+                    fontSize: 15, fontFamily: 'FiraSans_Regular', color: Colors.white
+                ),
+              ),
+              duration:Duration(seconds: 2),
+            )
+        );
+        return;
+      }
+     }
+
+     navigator.pushNamedAndRemoveUntil('/navbar', (Route<dynamic> route)=> false);
   }
 
   Widget build(BuildContext context) {
@@ -106,9 +168,6 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               cursorColor: Colors.white,
                               style: TextStyles.StyleText,
-                              onChanged: (value0) {
-                                emailF = value0;
-                              },
                             ),
                           ),
                         ), //Поле почты
@@ -144,9 +203,6 @@ class _LoginPageState extends State<LoginPage> {
                               cursorColor: Colors.white,
                               style: TextStyles.StyleText,
 
-                              onChanged: (value1) {
-                                passwordF = value1;
-                              },
                             ),
                           ),
                         ),
@@ -171,33 +227,7 @@ class _LoginPageState extends State<LoginPage> {
                           child: Container(
                               width: 250,
                               child: ElevatedButton(
-                                onPressed: (){
-                                    if(emailF.isEmpty || passwordF.isEmpty){
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                          const SnackBar(
-                                            content: Text(
-                                              'Oops! Looks like not everything is filled :(',
-                                              style: TextStyle(
-                                                  fontSize: 15, fontFamily: 'FiraSans_Regular', color: Colors.white
-                                              ),
-                                            ),
-                                            duration:Duration(seconds: 2),
-                                          )
-                                      );
-                                    }else if(!EmailValidator.validate(emailF)){
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                          const SnackBar(
-                                            content: Text(
-                                              'Input correct email',
-                                              style: TextStyle(
-                                                  fontSize: 15, fontFamily: 'FiraSans_Regular', color: Colors.white
-                                              ),
-                                            ),
-                                            duration:Duration(seconds: 2),
-                                          )
-                                      );
-                                    }
-                                },
+                                onPressed: login,
                                 child: GradientText(
                                   'Login',
                                   style: TextStyles.StyleText,

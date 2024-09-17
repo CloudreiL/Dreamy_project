@@ -34,7 +34,6 @@ class _RegPageState extends State<RegPage> {
   Future<void> signUp() async {
     final navigator = Navigator.of(context);
 
-    // Проверяем, что все поля заполнены
     if (emailController.text.trim().isEmpty ||
         fPasswordController.text.trim().isEmpty ||
         sPasswordController.text.trim().isEmpty) {
@@ -48,10 +47,8 @@ class _RegPageState extends State<RegPage> {
           duration: Duration(seconds: 2),
         ),
       );
-      return; // Останавливаем выполнение функции, если проверка не пройдена
+      return;
     }
-
-    // Проверяем, что email введён корректно
     if (!EmailValidator.validate(emailController.text.trim())) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -65,8 +62,6 @@ class _RegPageState extends State<RegPage> {
       );
       return;
     }
-
-    // Проверяем, что пароли совпадают
     if (fPasswordController.text != sPasswordController.text) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -82,13 +77,13 @@ class _RegPageState extends State<RegPage> {
     }
 
     try {
-      // Пытаемся зарегистрировать пользователя в Firebase
+
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text.trim(),
         password: fPasswordController.text.trim(),
       );
     } on FirebaseAuthException catch (e) {
-      // Обрабатываем возможные ошибки Firebase
+
       if (e.code == 'email-already-in-use') {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -112,10 +107,9 @@ class _RegPageState extends State<RegPage> {
           ),
         );
       }
-      return; // Останавливаем выполнение функции, если возникла ошибка Firebase
+      return;
     }
 
-    // Переход на главную страницу после успешной регистрации
     navigator.pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
   }
 
