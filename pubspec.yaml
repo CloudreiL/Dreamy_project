@@ -51,9 +51,16 @@ dev_dependencies:
   curved_navigation_bar: "^1.0.3"
 
 flutter_launcher_icons:
-  image_path: "assets/icons/app_icon/android/play_store_512.png"
+  image_path_android: "assets/icons/app_icon/android/res/mipmap-xxxhdpi/Dreamy.png"
+  image_path_ios: "assets/icons/app_icon/ios/AppIcon~ios-marketing.png"
+  adoptive_icon_background: "assets/icons/app_icon/android/res/mipmap-xxxhdpi/Dreamy_background.png"
+  adoptive_icon_foreground: "assets/icons/app_icon/android/res/mipmap-xxxhdpi/Dreamy_foreground.png"
+  adoptive_icon_foreground_inset: 16
+  adoptive_icon_monochrome: "assets/icons/app_icon/android/res/mipmap-xxxhdpi/Dreamy_monochrome.png"
+  min_sdk_android: 21
   android: true
   ios: true
+  remove_alpha_ios: true
 
 
 

@@ -25,10 +25,10 @@ class _NotificationPageState extends State<NotificationPage> {
     return Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: [Colors.black, Color.fromRGBO(57, 34, 99, 1)],
-      )),
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Colors.black, Color.fromRGBO(57, 34, 99, 1)],
+          )),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
@@ -147,23 +147,20 @@ class _NotificationPageState extends State<NotificationPage> {
                         child: Text('from', style: TextStyles.StyleText),
                       ),
                       Container(
-                        width: 115,
-                        decoration: BoxDecoration(boxShadow: [
-                          BoxShadow(
-                              color: Colors.black.withOpacity(0.5),
-                              offset: Offset(0, 3),
-                              spreadRadius: 1,
-                              blurRadius: 10)
-                        ], borderRadius: BorderRadius.circular(40)),
+                        width: 120,
+                        decoration: ContainerDecor.DownMenuBox,
                         child: DropdownMenu(
-                          width: 115,
+                          width: 120,
                           dropdownMenuEntries: time0
                               .map<DropdownMenuEntry<String>>((String value) {
                             return DropdownMenuEntry<String>(
                                 value: value, label: value);
                           }).toList(),
+                          textAlign: TextAlign.center,
+                          trailingIcon: Icon(Icons.arrow_drop_down_rounded,color: Colors.white,),
+                          selectedTrailingIcon: Icon(Icons.arrow_drop_up_rounded,color: Colors.white,),
                           textStyle: TextStyles.StyleText.copyWith(
-                              color: Colors.black, fontSize: 17),
+                              color: Colors.white, fontSize: 17),
                           inputDecorationTheme: DropDownMenuDec.MenuDec,
                           initialSelection: dropdownValue0,
                           onSelected: (String? newValue0) {
@@ -178,13 +175,7 @@ class _NotificationPageState extends State<NotificationPage> {
                         padding: const EdgeInsets.only(right: 8.0),
                         child: Container(
                           width: 115,
-                          decoration: BoxDecoration(boxShadow: [
-                            BoxShadow(
-                                color: Colors.black.withOpacity(0.5),
-                                offset: Offset(0, 3),
-                                spreadRadius: 1,
-                                blurRadius: 10)
-                          ], borderRadius: BorderRadius.circular(40)),
+                          decoration: ContainerDecor.DownMenuBox,
                           child: DropdownMenu(
                             width: 115,
                             dropdownMenuEntries: time1
@@ -192,8 +183,11 @@ class _NotificationPageState extends State<NotificationPage> {
                               return DropdownMenuEntry<String>(
                                   value: value, label: value);
                             }).toList(),
+                            textAlign: TextAlign.center,
+                            trailingIcon: Icon(Icons.arrow_drop_down_rounded,color: Colors.white,),
+                            selectedTrailingIcon: Icon(Icons.arrow_drop_up_rounded,color: Colors.white,),
                             textStyle: TextStyles.StyleText.copyWith(
-                                color: Colors.black, fontSize: 17),
+                                color: Colors.white, fontSize: 17),
                             inputDecorationTheme: DropDownMenuDec.MenuDec,
                             initialSelection: dropdownValue1,
                             onSelected: (String? newValue1) {

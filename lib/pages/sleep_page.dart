@@ -1,6 +1,5 @@
+import 'package:dreamy_project/pages/sleep_pages/dream_diary.dart';
 import 'package:flutter/material.dart';
-import 'package:dreamy_project/pages/test.dart';
-
 import 'package:dreamy_project/classes/style.dart';
 
 class SleepPage extends StatefulWidget{
@@ -44,7 +43,7 @@ class _SleepPageState extends State<SleepPage>{
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const TestPage()),
+                        builder: (context) => const DreamDiary()),
                     );
                   },
                 ),

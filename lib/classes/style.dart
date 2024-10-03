@@ -47,17 +47,41 @@ class ContainerDecor {
           color: Colors.white
       )
   );
+
+  static BoxDecoration DownMenuBox = BoxDecoration(
+      boxShadow: [
+        BoxShadow(
+            color: Colors.black.withOpacity(0.5),
+            offset: Offset(0, 3),
+            spreadRadius: 1,
+            blurRadius: 10)
+      ], borderRadius: BorderRadius.circular(40),
+      gradient: LinearGradient(
+          begin: Alignment.centerRight,
+          end: Alignment.centerLeft,
+          colors: [
+            Color.fromRGBO(57, 34, 99, 1),
+            Color.fromRGBO(103, 58, 183, 1)
+          ])
+  );
 }
 
 class DropDownMenuDec {
   static InputDecorationTheme MenuDec = InputDecorationTheme(
       isDense: true,
-      border: OutlineInputBorder(borderRadius: BorderRadius.circular(40)),
-      labelStyle: TextStyles.StyleText.copyWith(color: Colors.black, fontSize: 15),
-      fillColor: Colors.white,
+      constraints: BoxConstraints.tight(const Size.fromHeight(40)),
+      focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(40),
+          borderSide: BorderSide(color: Colors.transparent)),
+      enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(40),
+          borderSide: BorderSide(color: Colors.transparent)),
+      labelStyle: TextStyles.StyleText.copyWith(color: Colors.white, fontSize: 15),
+      fillColor: Colors.transparent,
       filled: true,
-      counterStyle: TextStyles.StyleText,
+      counterStyle: TextStyles.StyleText.copyWith(color: Colors.white),
       contentPadding: EdgeInsets.only(left: 20));
+
 }
 
 class PieData {
@@ -68,9 +92,9 @@ class PieData {
 
   PieData(
       {required this.value,
-      required this.color,
-      required this.icon,
-      required this.title});
+        required this.color,
+        required this.icon,
+        required this.title});
 }
 
 final dataChart = [
