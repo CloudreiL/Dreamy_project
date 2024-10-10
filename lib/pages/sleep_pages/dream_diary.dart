@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import'package:dreamy_project/localStorage/data.dart';
 import 'package:dreamy_project/classes/style.dart';
+import 'package:intl/intl.dart';
 
 class DreamDiary extends StatefulWidget{
   const DreamDiary({super.key});
@@ -34,15 +34,15 @@ class _DreamDiaryState extends State<DreamDiary>{
         child: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
-              title: Text('Dream Diary', style: TextStyles.StyleText.copyWith(
-                fontSize: 30,
-              )),
-              backgroundColor: Colors.transparent
+            title: Text('Your Dream Diary', style: TextStyles.StyleText.copyWith(
+              fontSize: 30,
+            )),
+            backgroundColor: Colors.transparent,
+
           ),
-          body: SingleChildScrollView(
-            child: Scrollbar(
-              thumbVisibility: true,
-              child: Column(
+          body: Stack(
+            children: [
+              Column(
                   children: [
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.05,
@@ -87,8 +87,76 @@ class _DreamDiaryState extends State<DreamDiary>{
                         ),
                       ],
                     ),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+                    Expanded(
+                      child: GridView.builder(
+                        itemCount: notes.length,
+                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: 300,
+                            childAspectRatio: MediaQuery.of(context).size.width * 0.0020,
+                            crossAxisSpacing: MediaQuery.of(context).size.width * 0.07,
+                            mainAxisSpacing: 6),
+                        itemBuilder: (context, index){
+                          return Wrap(
+                            spacing: 10,
+                            runSpacing: 10,
+                            children: [
+                              InkWell(
+                                onTap: (){},
+                                child: Container(
+                                  decoration: ContainerDecor.ContainerDec.copyWith(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      colors: [
+                                        Color.fromRGBO(103, 58, 183, 1),
+                                        Color.fromRGBO(195, 66, 218, 1)
+                                      ],
+                                    ),
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children:[
+                                            Padding(
+                                              padding: const EdgeInsets.only(left: 3.0, top: 3),
+                                              child: Text(notes[index].title, style: TextStyles.StyleText),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(right: 3.0, top: 3),
+                                              child: notes[index].icon,
+                                            )
+                                          ]
+                                      ),
+                                      SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 3.0),
+                                        child: Text(notes[index].content, style: TextStyles.StyleText.copyWith(fontSize: 15),
+                                            overflow: TextOverflow.ellipsis, maxLines: 6),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        children: [
+                                          SizedBox(height: MediaQuery.of(context).size.height * 0.06,),
+                                          Padding(
+                                            padding: const EdgeInsets.only(right:3.0),
+                                            child: Text(DateFormat('yyyy-MM-dd').format(notes[index].date),
+                                                style: TextStyles.StyleText.copyWith(fontSize: 15)),
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                    ),
                   ]),
-            ),
+            ],
           ),
         )
     );

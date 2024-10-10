@@ -110,7 +110,12 @@ class _RegPageState extends State<RegPage> {
       return;
     }
 
-    navigator.pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const FirebaseStream(),
+        )
+    );
   }
 
 
