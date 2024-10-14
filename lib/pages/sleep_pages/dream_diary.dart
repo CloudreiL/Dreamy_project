@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import'package:dreamy_project/localStorage/data.dart';
 import 'package:dreamy_project/classes/style.dart';
 import 'package:intl/intl.dart';
+import 'package:gradient_icon/gradient_icon.dart';
+import 'package:dreamy_project/pages/sleep_pages/notes.dart';
 
 class DreamDiary extends StatefulWidget{
   const DreamDiary({super.key});
@@ -37,7 +39,8 @@ class _DreamDiaryState extends State<DreamDiary>{
             title: Text('Your Dream Diary', style: TextStyles.StyleText.copyWith(
               fontSize: 30,
             )),
-            backgroundColor: Colors.transparent,
+            backgroundColor: Colors.black,
+            foregroundColor: Colors.white,
 
           ),
           body: Stack(
@@ -45,14 +48,14 @@ class _DreamDiaryState extends State<DreamDiary>{
               Column(
                   children: [
                     SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.05,
+                      height: MediaQuery.of(context).size.height * 0.04,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.05,
+                          width: MediaQuery.of(context).size.width * 0.01,
                         ),
                         Padding(
                           padding: const EdgeInsets.only(right: 5.0),
@@ -87,19 +90,17 @@ class _DreamDiaryState extends State<DreamDiary>{
                         ),
                       ],
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                     Expanded(
                       child: GridView.builder(
                         itemCount: notes.length,
                         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                            maxCrossAxisExtent: 300,
-                            childAspectRatio: MediaQuery.of(context).size.width * 0.0020,
+                            maxCrossAxisExtent: 250,
+                            childAspectRatio: MediaQuery.of(context).size.width * 0.0021,
                             crossAxisSpacing: MediaQuery.of(context).size.width * 0.07,
-                            mainAxisSpacing: 6),
+                            mainAxisSpacing: 3),
                         itemBuilder: (context, index){
                           return Wrap(
-                            spacing: 10,
-                            runSpacing: 10,
                             children: [
                               InkWell(
                                 onTap: (){},
@@ -133,7 +134,7 @@ class _DreamDiaryState extends State<DreamDiary>{
                                       Padding(
                                         padding: const EdgeInsets.only(left: 3.0),
                                         child: Text(notes[index].content, style: TextStyles.StyleText.copyWith(fontSize: 15),
-                                            overflow: TextOverflow.ellipsis, maxLines: 6),
+                                            overflow: TextOverflow.ellipsis, maxLines: 5),
                                       ),
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.end,
@@ -156,6 +157,44 @@ class _DreamDiaryState extends State<DreamDiary>{
                       ),
                     ),
                   ]),
+              Positioned(
+                bottom: 10,
+                right: 10,
+                child: Container(
+                  width: 50,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black,
+                        spreadRadius: 1,
+                        blurRadius: 10,
+                      ),
+                    ],
+                  ),
+                  child: IconButton(
+                    padding: EdgeInsets.only(left: 1, bottom: 13),
+                    icon: GradientIcon(
+                      icon: Icons.add,
+                      gradient: LinearGradient(
+                        colors: [
+                          Color.fromRGBO(195, 66, 218, 1),
+                          Color.fromRGBO(103, 58, 183, 1)
+                        ],
+                      ),
+                      size: 40,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => NotesPage())
+                      );
+                    },
+                  ),
+                ),
+              ),
             ],
           ),
         )

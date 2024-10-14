@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class TextStyles {
   static const TextStyle StyleText = TextStyle(
@@ -16,10 +17,9 @@ class TextFields {
     labelStyle: TextStyles.StyleText,
     filled: true,
     fillColor: Color.fromRGBO(255, 255, 255, 200),
+
   );
 }
-
-
 
 class ContainerDecor {
   static BoxDecoration ContainerDec = BoxDecoration(
@@ -64,6 +64,14 @@ class ContainerDecor {
             Color.fromRGBO(103, 58, 183, 1)
           ])
   );
+
+  static BoxDecoration BackgroundStyle = BoxDecoration(
+      gradient: LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: [Colors.black, Color.fromRGBO(57, 34, 99, 1)],
+      )
+  );
 }
 
 class DropDownMenuDec {
@@ -82,6 +90,59 @@ class DropDownMenuDec {
       counterStyle: TextStyles.StyleText.copyWith(color: Colors.white),
       contentPadding: EdgeInsets.only(left: 20));
 
+}
+
+class Emotions{
+  Icon smile_em({double size = 30}) => Icon(
+    Icons.sentiment_satisfied_alt,
+    color: Color.fromRGBO(134, 216, 120, 1),
+    size: size,
+  );
+  Icon sad_em({double size = 30}) => Icon(
+    Icons.sentiment_dissatisfied_outlined,
+    color: Color.fromRGBO(140, 248, 255, 1),
+    size: size,
+  );
+  Icon dead_em({double size = 30}) => Icon(
+    Icons.sentiment_very_dissatisfied_outlined,
+    color: Color.fromRGBO(255, 178, 178, 1),
+    size: size,
+  );
+  Icon veryhap_em({double size = 30}) => Icon(
+    Icons.sentiment_very_satisfied_outlined,
+    color: Color.fromRGBO(255, 244, 142, 1),
+    size: size,
+  );
+  Icon neutral_em({double size = 30}) => Icon(
+    Icons.sentiment_neutral_outlined,
+    color: Colors.white,
+    size: size,
+  );
+  Icon smile_em_full({double size = 30}) => Icon(
+    MdiIcons.emoticonHappy,
+    color: Color.fromRGBO(134, 216, 120, 1),
+    size: size,
+  );
+  Icon sad_em_full({double size = 30}) => Icon(
+    MdiIcons.emoticonSad,
+    color: Color.fromRGBO(140, 248, 255, 1),
+    size: size,
+  );
+  Icon dead_em_full({double size = 30}) => Icon(
+    MdiIcons.emoticonDead,
+    color: Color.fromRGBO(255, 178, 178, 1),
+    size: size,
+  );
+  Icon veryhap_em_full({double size = 30}) => Icon(
+    MdiIcons.emoticonExcited,
+    color: Color.fromRGBO(255, 244, 142, 1),
+    size: size,
+  );
+  Icon neutral_em_full({double size = 30}) => Icon(
+    MdiIcons.emoticonNeutral,
+    color: Colors.white,
+    size: size,
+  );
 }
 
 class PieData {
