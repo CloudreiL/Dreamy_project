@@ -1,9 +1,8 @@
 import 'package:dreamy_project/classes/style.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:dreamy_project/pages/user_directory/settings_diectory/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_icon/gradient_icon.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
-import 'package:dreamy_project/pages/registration_login/login_page.dart';
 
 class UserPage extends StatefulWidget {
   const UserPage({super.key});
@@ -13,30 +12,6 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
-  final user = FirebaseAuth.instance.currentUser;
-
-  Future<void> signOut() async{
-
-    await FirebaseAuth.instance.signOut();
-
-    Navigator.pushReplacement(
-      context,
-        MaterialPageRoute(
-          builder: (context) => const LoginPage(),
-        )
-    );
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text(
-          'You have successfully logged out of your account',
-          style: TextStyle(
-              fontSize: 15, fontFamily: 'FiraSans_Regular', color: Colors.white),
-        ),
-        duration: Duration(seconds: 2),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -186,25 +161,12 @@ class _UserPageState extends State<UserPage> {
                             children: [
                               Container(
                                   width: 198,
-                                  margin: EdgeInsets.only(bottom: 10),
                                   child: ElevatedButton(
-                                    onPressed: signOut,
-                                    child: GradientText(
-                                      'Log Out',
-                                      style: TextStyles.StyleText,
-                                      colors: [
-                                        Color.fromRGBO(195, 66, 218, 1),
-                                        Color.fromRGBO(103, 58, 183, 1)
-                                      ],
-                                    ),
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.white,
-                                    ),
-                                  )),
-                              Container(
-                                  width: 198,
-                                  child: ElevatedButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) => SettingsPage())
+                                      );
+                                    },
                                     child: GradientText(
                                       'Settings',
                                       style: TextStyles.StyleText,

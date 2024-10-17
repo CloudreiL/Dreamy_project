@@ -1,4 +1,4 @@
-import 'package:dreamy_project/pages/sleep_pages/dream_diary.dart';
+import 'package:dreamy_project/pages/sleep_directory//dream_diary_page.dart';
 import 'package:flutter/material.dart';
 import 'package:dreamy_project/classes/style.dart';
 import 'package:flutter/services.dart';
@@ -50,10 +50,7 @@ class _NotesPageState extends State<NotesPage>{
           actions: [
             IconButton(
               onPressed: (){
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => DreamDiary())
-                );
+                Navigator.pop(context);
               },
               icon: Icon(Icons.check, color: Colors.white, size: 30),
             )

@@ -1,9 +1,9 @@
-import 'package:dreamy_project/pages/registration_login/email.dart';
+import 'package:dreamy_project/pages/registration_directory//email_page.dart';
 import 'package:dreamy_project/services/firebase_stream.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:dreamy_project/classes/style.dart';
-import 'package:dreamy_project/pages/registration_login/login_page.dart';
+import 'package:dreamy_project/pages/registration_directory/login_page.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:email_validator/email_validator.dart';
 
@@ -32,7 +32,6 @@ class _RegPageState extends State<RegPage> {
   }
 
   Future<void> signUp() async {
-    final navigator = Navigator.of(context);
 
     if (emailController.text.trim().isEmpty ||
         fPasswordController.text.trim().isEmpty ||
@@ -77,7 +76,6 @@ class _RegPageState extends State<RegPage> {
     }
 
     try {
-
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text.trim(),
         password: fPasswordController.text.trim(),

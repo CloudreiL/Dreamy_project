@@ -3,7 +3,7 @@ import'package:dreamy_project/localStorage/data.dart';
 import 'package:dreamy_project/classes/style.dart';
 import 'package:intl/intl.dart';
 import 'package:gradient_icon/gradient_icon.dart';
-import 'package:dreamy_project/pages/sleep_pages/notes.dart';
+import 'package:dreamy_project/pages/sleep_directory/notes_page.dart';
 
 class DreamDiary extends StatefulWidget{
   const DreamDiary({super.key});

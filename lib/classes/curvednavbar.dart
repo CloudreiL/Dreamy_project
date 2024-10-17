@@ -1,7 +1,7 @@
 import 'package:dreamy_project/pages/home_page.dart';
 import 'package:dreamy_project/pages/notification_page.dart';
 import 'package:dreamy_project/pages/sleep_page.dart';
-import 'package:dreamy_project/pages/user_page.dart';
+import 'package:dreamy_project/pages/user_directory/user_page.dart';
 import 'package:dreamy_project/pages/test.dart';
 
 import 'package:flutter/material.dart';

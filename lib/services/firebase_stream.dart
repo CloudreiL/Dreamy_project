@@ -1,7 +1,7 @@
-import 'package:dreamy_project/pages/registration_login/login_page.dart';
+import 'package:dreamy_project/pages/registration_directory/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:dreamy_project/pages/registration_login/email.dart';
+import 'package:dreamy_project/pages/registration_directory/email_page.dart';
 import 'package:dreamy_project/classes/curvednavbar.dart';
 
 class FirebaseStream extends StatelessWidget {

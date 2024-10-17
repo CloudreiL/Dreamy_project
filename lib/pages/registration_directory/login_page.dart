@@ -1,6 +1,7 @@
+import 'package:dreamy_project/services/firebase_stream.dart';
 import 'package:flutter/material.dart';
 import 'package:dreamy_project/classes/style.dart';
-import 'package:dreamy_project/pages/registration_login/registration_page.dart';
+import 'package:dreamy_project/pages/registration_directory/registration_page.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -29,7 +30,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> login () async{
-    final navigator = Navigator.of(context);
 
     if(emailController.text.trim().isEmpty || passwordController.text.trim().isEmpty){
       ScaffoldMessenger.of(context).showSnackBar(
@@ -81,7 +81,21 @@ class _LoginPageState extends State<LoginPage> {
             )
         );
         return;
-      }else{
+      }else if (e.code == 'network-request-failed') {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text(
+                'Network request failed. Try again',
+                style: TextStyle(
+                    fontSize: 15, fontFamily: 'FiraSans_Regular', color: Colors.white
+                ),
+              ),
+              duration:Duration(seconds: 2),
+            )
+        );
+        return;
+      }
+      else{
         ScaffoldMessenger.of(context).showSnackBar(
              SnackBar(
               content: Text(
@@ -96,8 +110,10 @@ class _LoginPageState extends State<LoginPage> {
         return;
       }
      }
-
-     navigator.pushNamedAndRemoveUntil('/navbar', (Route<dynamic> route)=> false);
+     Navigator.pushReplacement(
+       context,
+       MaterialPageRoute(builder: (context) => FirebaseStream())
+     );
   }
 
   Widget build(BuildContext context) {

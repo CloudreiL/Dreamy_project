@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:dreamy_project/classes/style.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
-import 'package:dreamy_project/pages/registration_login/registration_page.dart';
+import 'package:dreamy_project/pages/registration_directory/registration_page.dart';
 
 class EmailVerification extends StatefulWidget{
 

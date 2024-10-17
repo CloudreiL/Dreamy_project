@@ -1,4 +1,4 @@
-import 'package:dreamy_project/pages/sleep_pages/dream_diary.dart';
+import 'package:dreamy_project/pages/sleep_directory/dream_diary_page.dart';
 import 'package:flutter/material.dart';
 import 'package:dreamy_project/classes/style.dart';
 

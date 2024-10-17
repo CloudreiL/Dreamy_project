@@ -17,7 +17,6 @@ class TextFields {
     labelStyle: TextStyles.StyleText,
     filled: true,
     fillColor: Color.fromRGBO(255, 255, 255, 200),
-
   );
 }
 
@@ -72,6 +71,23 @@ class ContainerDecor {
         colors: [Colors.black, Color.fromRGBO(57, 34, 99, 1)],
       )
   );
+  static BoxDecoration RedGradientBox = BoxDecoration(
+      gradient: LinearGradient(
+        begin: Alignment.centerLeft,
+        end: Alignment.centerRight,
+        colors: [
+          Color.fromRGBO(255, 0, 0, 1),
+          Color.fromRGBO(255, 94, 94, 1)
+        ],
+      ),
+      boxShadow: [
+        BoxShadow(
+            color: Colors.black.withOpacity(0.5),
+            offset: Offset(0, 3),
+            spreadRadius: 1,
+            blurRadius: 10)
+      ],
+      borderRadius: BorderRadius.circular(15));
 }
 
 class DropDownMenuDec {
