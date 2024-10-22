@@ -146,10 +146,11 @@ class _EmailVerificationState extends State<EmailVerification> {
                             ),
                             ElevatedButton(
                               onPressed: (){
+                                FirebaseAuth.instance.currentUser!.delete();
                                 Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) =>  RegPage(),
+                                      builder: (context) => RegPage(),
                                     )
                                 );
                               },
