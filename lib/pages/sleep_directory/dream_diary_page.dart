@@ -180,87 +180,93 @@ class _DreamDiaryState extends State<DreamDiary>{
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                     isLoading
                         ? Center(child: CircularProgressIndicator())
-                        :notes.isEmpty
+                        : notes.isEmpty
                         ? Center(
-                          child: Text('No notes availavle', style: TextStyles.StyleText,),
-                        )
+                      child: Text(
+                        'No notes available',
+                        style: TextStyles.StyleText,
+                      ),
+                    )
                         : Expanded(
-                      child: GridView.builder(
-                        itemCount: notes.length,
-                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                            maxCrossAxisExtent: 250,
-                            childAspectRatio: MediaQuery.of(context).size.width * 0.0021,
-                            crossAxisSpacing: MediaQuery.of(context).size.width * 0.07,
-                            mainAxisSpacing: 3),
-                        itemBuilder: (context, index){
-                          return Wrap(
-                            children: [
-                              InkWell(
-                                onTap: (){
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => NotesPage(
-                                          noteID: notes[index].id,
-                                          title: notes[index].title,
-                                          content: notes[index].content,
-                                          emotion: notes[index].emotion
-                                        )
+                      child: RefreshIndicator(
+                        onRefresh: loadNotesFromFirebase,
+                        child: GridView.builder(
+                          itemCount: notes.length,
+                          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                              maxCrossAxisExtent: 250,
+                              childAspectRatio: MediaQuery.of(context).size.width * 0.0021,
+                              crossAxisSpacing: MediaQuery.of(context).size.width * 0.07,
+                              mainAxisSpacing: 3),
+                          itemBuilder: (context, index){
+                            return Wrap(
+                              children: [
+                                InkWell(
+                                  onTap: (){
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => NotesPage(
+                                            noteID: notes[index].id,
+                                            title: notes[index].title,
+                                            content: notes[index].content,
+                                            emotion: notes[index].emotion
+                                          )
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    height: 200,
+                                    decoration: ContainerDecor.ContainerDec.copyWith(
+                                      gradient: LinearGradient(
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                        colors: [
+                                          Color.fromRGBO(103, 58, 183, 1),
+                                          Color.fromRGBO(195, 66, 218, 1)
+                                        ],
+                                      ),
                                     ),
-                                  );
-                                },
-                                child: Container(
-                                  height: 200,
-                                  decoration: ContainerDecor.ContainerDec.copyWith(
-                                    gradient: LinearGradient(
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomCenter,
-                                      colors: [
-                                        Color.fromRGBO(103, 58, 183, 1),
-                                        Color.fromRGBO(195, 66, 218, 1)
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children:[
+                                              Padding(
+                                                padding: const EdgeInsets.only(left: 3.0, top: 3),
+                                                child: Text(notes[index].title, style: TextStyles.StyleText),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(right: 3.0, top: 3),
+                                                child: notes[index].icon ,
+                                              )
+                                            ]
+                                        ),
+                                        SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 3.0),
+                                          child: Text(notes[index].content, style: TextStyles.StyleText.copyWith(fontSize: 15),
+                                              overflow: TextOverflow.ellipsis, maxLines: 5),
+                                        ),
+                                        Spacer(),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          children: [
+                                            SizedBox(height: MediaQuery.of(context).size.height * 0.06,),
+                                            Padding(
+                                              padding: const EdgeInsets.only(right:3.0),
+                                              child: Text(DateFormat('yyyy-MM-dd').format(notes[index].date),
+                                                  style: TextStyles.StyleText.copyWith(fontSize: 15)),
+                                            )
+                                          ],
+                                        ),
                                       ],
                                     ),
                                   ),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children:[
-                                            Padding(
-                                              padding: const EdgeInsets.only(left: 3.0, top: 3),
-                                              child: Text(notes[index].title, style: TextStyles.StyleText),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(right: 3.0, top: 3),
-                                              child: notes[index].icon ,
-                                            )
-                                          ]
-                                      ),
-                                      SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                                      Padding(
-                                        padding: const EdgeInsets.only(left: 3.0),
-                                        child: Text(notes[index].content, style: TextStyles.StyleText.copyWith(fontSize: 15),
-                                            overflow: TextOverflow.ellipsis, maxLines: 5),
-                                      ),
-                                      Spacer(),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.end,
-                                        children: [
-                                          SizedBox(height: MediaQuery.of(context).size.height * 0.06,),
-                                          Padding(
-                                            padding: const EdgeInsets.only(right:3.0),
-                                            child: Text(DateFormat('yyyy-MM-dd').format(notes[index].date),
-                                                style: TextStyles.StyleText.copyWith(fontSize: 15)),
-                                          )
-                                        ],
-                                      ),
-                                    ],
-                                  ),
                                 ),
-                              ),
-                            ],
-                          );
-                        },
+                              ],
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ]),
