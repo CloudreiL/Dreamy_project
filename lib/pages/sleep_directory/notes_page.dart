@@ -6,11 +6,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class NotesPage extends StatefulWidget{
-  const NotesPage({super.key});
+
+  final String? noteID;
+  final String? title;
+  final String? content;
+  final String? emotion;
+
+  const NotesPage({super.key,this.noteID, this.title, this.content, this.emotion});
 
   @override
   _NotesPageState createState() => _NotesPageState();
-
 }
 
 class _NotesPageState extends State<NotesPage>{
@@ -66,9 +71,15 @@ class _NotesPageState extends State<NotesPage>{
       return;
     }
 
-    DatabaseReference ref = FirebaseDatabase.instance
-        .ref("users/${user.uid}/notes")
-        .push();
+    DatabaseReference ref;
+
+    if(widget.noteID != null){
+      ref = FirebaseDatabase.instance.ref("users/${user.uid}/notes/${widget.noteID}");
+    }else{
+      ref = FirebaseDatabase.instance
+          .ref("users/${user.uid}/notes")
+          .push();
+    }
 
     await ref.set({
       "title": title,
@@ -77,9 +88,9 @@ class _NotesPageState extends State<NotesPage>{
       "timestamp": DateTime.now().toIso8601String(),
     });
 
-
     titleController.clear();
     contentController.clear();
+
     setState(() {
       isHappy = false;
       isSad = false;
@@ -87,6 +98,8 @@ class _NotesPageState extends State<NotesPage>{
       isVeryHap = false;
       isNeut = false;
     });
+
+    Navigator.pop(context);
   }
 
   String _getSelectedEmotion(){
@@ -105,13 +118,30 @@ class _NotesPageState extends State<NotesPage>{
     super.dispose();
   }
 
+  @override
+  void initState(){
+    super.initState();
+
+    if(widget.title != null){
+      titleController.text = widget.title!;
+    }
+    if(widget.content != null){
+      contentController.text = widget.content!;
+    }
+    if(widget.emotion != null){
+      _selectedEmo(widget.emotion!);
+    }
+  }
+
   Widget build(BuildContext context){
     return Container(
       decoration: ContainerDecor.BackgroundStyle,
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
-          title: Text('New dream', style: TextStyles.StyleText.copyWith(
+          title: Text(widget.title != null
+              ?'Edit dream'
+              :'New dream', style: TextStyles.StyleText.copyWith(
             fontSize: 30,
           )),
           actions: [
@@ -128,7 +158,6 @@ class _NotesPageState extends State<NotesPage>{
                     duration: Duration(seconds: 2),
                   ),
                 );
-                Navigator.pop(context);
               },
               icon: Icon(Icons.check, color: Colors.white, size: 30),
             )
@@ -144,7 +173,7 @@ class _NotesPageState extends State<NotesPage>{
                 height: 70,
                 width:  MediaQuery.of(context).size.width * 0.91,
                 child: TextField(
-                  maxLength: 10,
+                  maxLength: 13,
                   decoration: TextFields.FieldDec.copyWith(
                     labelText: 'Title',
                   ),

@@ -20,8 +20,9 @@ class Notes{
   String content;
   final DateTime date;
   final Icon icon;
+  final String emotion;
 
-  Notes(this.id, this.title, this.content, this.date, this.icon);
+  Notes(this.id, this.title, this.content, this.date, this.icon, this.emotion);
 }
 
 class _DreamDiaryState extends State<DreamDiary>{
@@ -76,7 +77,8 @@ class _DreamDiaryState extends State<DreamDiary>{
             value['title'],
             value['content'],
             DateTime.parse(value['timestamp']),
-            emotionIcon
+            emotionIcon,
+            value['emotion'],
           )
         );
       });
@@ -88,8 +90,8 @@ class _DreamDiaryState extends State<DreamDiary>{
     }
   }
 
-  Icon getEmotionIcon(String emotion){
-    switch(emotion){
+  Icon getEmotionIcon(String emotion) {
+    switch (emotion) {
       case 'happy':
         return Emotions().smile_em_full(size: 30);
       case 'sad':
@@ -104,6 +106,7 @@ class _DreamDiaryState extends State<DreamDiary>{
         return Emotions().neutral_em(size: 30);
     }
   }
+
 
   Widget build(BuildContext context){
 
@@ -193,7 +196,19 @@ class _DreamDiaryState extends State<DreamDiary>{
                           return Wrap(
                             children: [
                               InkWell(
-                                onTap: (){},
+                                onTap: (){
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => NotesPage(
+                                          noteID: notes[index].id,
+                                          title: notes[index].title,
+                                          content: notes[index].content,
+                                          emotion: notes[index].emotion
+                                        )
+                                    ),
+                                  );
+                                },
                                 child: Container(
                                   height: 200,
                                   decoration: ContainerDecor.ContainerDec.copyWith(
@@ -213,11 +228,11 @@ class _DreamDiaryState extends State<DreamDiary>{
                                           children:[
                                             Padding(
                                               padding: const EdgeInsets.only(left: 3.0, top: 3),
-                                              child: Text(notes[index].title, style: TextStyles.StyleText, maxLines: 2),
+                                              child: Text(notes[index].title, style: TextStyles.StyleText),
                                             ),
                                             Padding(
                                               padding: const EdgeInsets.only(right: 3.0, top: 3),
-                                              child: notes[index].icon,
+                                              child: notes[index].icon ,
                                             )
                                           ]
                                       ),
