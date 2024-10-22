@@ -1,5 +1,6 @@
 import 'package:dreamy_project/pages/registration_directory/login_page.dart';
 import 'package:dreamy_project/services/firebase_stream.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:dreamy_project/classes/style.dart';
@@ -38,28 +39,27 @@ class _AccountSettingsPageState extends State<AccountSettingsPage> {
     });
   }
 
-
   void _deleteAccount() async {
-      try {
-       FirebaseAuth.instance.currentUser!.delete();
-       FirebaseAuth.instance.signOut();
+    try {
+      FirebaseAuth.instance.currentUser!.delete();
+      FirebaseAuth.instance.signOut();
 
-       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
 
-       ScaffoldMessenger.of(context).showSnackBar(
-         const SnackBar(
-           content: Text(
-             'You have successfully deleted your account',
-             style: TextStyle(
-                 fontSize: 15, fontFamily: 'FiraSans_Regular', color: Colors.white),
-           ),
-           duration: Duration(seconds: 2),
-         ),
-       );
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'You have successfully deleted your account',
+            style: TextStyle(
+                fontSize: 15, fontFamily: 'FiraSans_Regular', color: Colors.white),
+          ),
+          duration: Duration(seconds: 2),
+        ),
+      );
 
-      } catch (e) {
-        print('Ошибка $e');
-      }
+    } catch (e) {
+      print('Ошибка $e');
+    }
   }
 
     Future<void> _showAlertDialog() async {

@@ -86,7 +86,11 @@ class _DreamDiaryState extends State<DreamDiary>{
         notes = loadedNotes;
         isLoading = false;
       });
-
+    }else{
+      setState(() {
+        notes = [];
+        isLoading = false;
+      });
     }
   }
 
