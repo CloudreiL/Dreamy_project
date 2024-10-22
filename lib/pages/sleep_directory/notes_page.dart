@@ -2,6 +2,8 @@ import 'package:dreamy_project/pages/sleep_directory//dream_diary_page.dart';
 import 'package:flutter/material.dart';
 import 'package:dreamy_project/classes/style.dart';
 import 'package:flutter/services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class NotesPage extends StatefulWidget{
   const NotesPage({super.key});
@@ -31,6 +33,71 @@ class _NotesPageState extends State<NotesPage>{
     isNeut = (emotion == 'neutral');
   }
 
+  Future<void> _saveNote() async{
+    User? user = FirebaseAuth.instance.currentUser;
+
+    if (user == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+         SnackBar(
+          content: Text(
+            "User cannot be found",
+            style: TextStyles.StyleText),
+          duration: Duration(seconds: 2),
+        ),
+      );
+      return;
+    }
+
+    String title = titleController.text.trim();
+    String content = contentController.text.trim();
+    String emotion = _getSelectedEmotion();
+
+    if(title.isEmpty || content.isEmpty || emotion.isEmpty){
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            "Title, content or emoji cannot be empty",
+            style: TextStyle(
+                fontSize: 15, fontFamily: 'FiraSans_Regular', color: Colors.white),
+          ),
+          duration: Duration(seconds: 2),
+        ),
+      );
+      return;
+    }
+
+    DatabaseReference ref = FirebaseDatabase.instance
+        .ref("users/${user.uid}/notes")
+        .push();
+
+    await ref.set({
+      "title": title,
+      "content": content,
+      "emotion": emotion,
+      "timestamp": DateTime.now().toIso8601String(),
+    });
+
+
+    titleController.clear();
+    contentController.clear();
+    setState(() {
+      isHappy = false;
+      isSad = false;
+      isTerr = false;
+      isVeryHap = false;
+      isNeut = false;
+    });
+  }
+
+  String _getSelectedEmotion(){
+    if(isHappy) return 'happy';
+    if(isSad) return 'sad';
+    if(isTerr) return 'terrified';
+    if(isVeryHap) return 'veryhappy';
+    if(isNeut) return 'neutral';
+    return 'none';
+  }
+
   @override
   void dispose(){
     titleController.dispose();
@@ -50,6 +117,17 @@ class _NotesPageState extends State<NotesPage>{
           actions: [
             IconButton(
               onPressed: (){
+                _saveNote();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text(
+                      "Note saved successfully",
+                      style: TextStyle(
+                          fontSize: 15, fontFamily: 'FiraSans_Regular', color: Colors.white),
+                    ),
+                    duration: Duration(seconds: 2),
+                  ),
+                );
                 Navigator.pop(context);
               },
               icon: Icon(Icons.check, color: Colors.white, size: 30),
@@ -63,9 +141,10 @@ class _NotesPageState extends State<NotesPage>{
             children: [
               SizedBox(height: MediaQuery.of(context).size.height * 0.03),
               Container(
-                height: 50,
+                height: 70,
                 width:  MediaQuery.of(context).size.width * 0.91,
                 child: TextField(
+                  maxLength: 10,
                   decoration: TextFields.FieldDec.copyWith(
                     labelText: 'Title',
                   ),

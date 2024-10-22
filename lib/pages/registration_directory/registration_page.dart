@@ -1,6 +1,7 @@
 import 'package:dreamy_project/pages/registration_directory//email_page.dart';
 import 'package:dreamy_project/services/firebase_stream.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:dreamy_project/classes/style.dart';
 import 'package:dreamy_project/pages/registration_directory/login_page.dart';
@@ -76,12 +77,21 @@ class _RegPageState extends State<RegPage> {
     }
 
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text.trim(),
         password: fPasswordController.text.trim(),
       );
-    } on FirebaseAuthException catch (e) {
 
+      User? user = userCredential.user;
+
+      DatabaseReference ref = FirebaseDatabase.instance.ref("users/${user?.uid}");
+
+      await ref.set({
+        "email":user?.email,
+        "uid":user?.uid,
+        "notes":[]
+      });
+    } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -107,7 +117,6 @@ class _RegPageState extends State<RegPage> {
       }
       return;
     }
-
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
